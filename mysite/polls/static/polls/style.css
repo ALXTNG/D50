@@ -1,0 +1,14 @@
+
+li a {
+    color: green;
+}
+#some_div {
+    background-image:url(image.jpg);
+    -webkit-transition:background-image 0.5s;
+    /* Other vendor-prefixed transition properties */
+    transition:background-image 0.5s;
+}
+
+#some_div:hover {
+    background-image:url(image1.jpeg);
+}
