@@ -1,0 +1,128 @@
+
+.row header h2 {
+	margin-bottom:0px;
+}
+
+.lead {
+    margin-bottom: 10px;
+}
+
+.row footer {
+    margin-bottom: 10px;
+}
+
+
+
+
+/* --------------------------------------
+   Typography
+   -------------------------------------- */
+
+body {
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizelegibility;
+}
+
+
+
+
+
+.pagination form {
+    display: inline!important;
+}
+
+
+
+
+/* --------------------------------------
+   Navbar
+   -------------------------------------- */
+
+#searchInput {
+	width: 200px;
+    
+}
+
+.navbar-brand {
+	padding: 13px 15px;
+}
+   
+   
+/* --------------------------------------
+   Carousel
+   -------------------------------------- */
+
+.box {
+   border-top: 1px solid #ddd;
+   border-right: 1px solid #ddd;
+}
+
+.profile {
+    font-size: 12px;
+    margin-right:40px;
+    padding: 20px;
+    
+}
+
+.profile-background {
+    background:#000;
+    color:white;
+}
+
+.posts-background {
+    background:#fff;
+}
+
+
+
+
+
+#profile_posts {
+    margin-top: 60px;
+}
+
+
+@media (max-width: 480px) {
+    .subscriber-part {
+        margin-top:20px;
+        float:left;
+        margin-bottom:20px;
+    }
+    #subButton {
+         margin-top:20px;
+    }
+    .searchPart {
+        float:left;
+    }
+}
+
+@media (max-width: 768px) {
+    .subscriber-part {  
+        margin-top:20px;
+        float:left;
+        margin-bottom:20px;
+    }
+    #subButton {
+         margin-top:20px;
+    }
+
+    .searchPart {
+        float:left;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-sm-3 {
+        position:fixed;
+    }
+}
+
+
+
+
+
+
+
+
+
+
