@@ -99,6 +99,12 @@
           {% else %} 
               <a href="./workinprogress/404" class="list-group-item">Forum</a>
           {% endif %} 
+          
+          {% if not user.is_authenticated %} 
+              <a href="/login/" class="list-group-item">Repository</a>
+          {% else %} 
+              <a href="./workinprogress/404" class="list-group-item">Repository</a>
+          {% endif %} 
 
 				</div>
 			</div>
@@ -114,6 +120,7 @@
 					<p><a href="./workinprogress/contact" class="btn btn-default">Contact us</a></p>
 					<p><a href="./workinprogress/proposals" class="btn btn-default">Proposal guidelines</a></p>
 					<p><a href="./workinprogress/proposalsubmission" class="btn btn-default">Submit a proposal</a></p>
+					<p><a href="./workinprogress/proposalsubmission" class="btn btn-default">Follow your proposals</a></p>
 				</div>
 			</div>
 
@@ -154,6 +161,67 @@
       
       
       
+      {% if post_list %}
+
+      
+    <ul>
+    {% for post in post_list %}
+    
+      <div class="row">
+				<article class="col-xs-12">
+					<h2>{{  post.title }}  </h2>
+					<p>{{  post.text }}</p>
+            {% if post.image %}              
+						<p><img class="img-responsive" src="{{  post.image.url }} "alt="" height="800" width="620"></p>
+            {%endif%}
+            {% if post.urllink %} 
+            <div class="embed-responsive embed-responsive-4by3">  
+            <iframe class="embed-responsive-item" src="{{  post.urllink }} " width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>           
+						</div>
+            <p><img class="img-responsive" alt="" height="800" width="620"></p>
+            {%endif%}
+            {% if post.extended_description|length > 0 %}
+            
+<!--
+   If there is any aextra text (if post.extended_description|length > 0 ) then use the accordion bootstrap stuff. please note that 
+   normally you would have href="#collapse"       and "#collapse" but if you do only the first one works, so you need to go and add a unique 
+   variable for example adding afterwards an iteratve counter -- so for example href = "#collapse{{ forloop.counter }}"
+-->
+              <p></a><button data-parent="#accordion" href="#collapse{{ forloop.counter }}" class="btn btn-default" data-toggle="collapse">Read More</button></a></p>
+              <div id="collapse{{ forloop.counter }}" class="collapse">
+               <p> {{ post.extended_description }}</p>
+              </div>
+              {%endif%}
+
+					<br>
+					
+					<p 
+          class="pull-right">
+<!--
+          this is to iterate through the tags
+-->
+          {% for tag in post.tag.all %}
+          <span class="label label-default">{{tag}}</span>
+          {% endfor %}
+           
+          </p>
+					<ul class="list-inline">
+<!--
+            formatting the pubblication date.
+-->
+						<li><a href="#">{{ post.pub_date|date:'d/m/Y' }}</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-comment"></span> 0 Comments</a></li>
+
+					</ul>
+				</article>
+      </div>
+      {% endfor %}
+    </ul>
+
+
+{% endif %}
+
+
 
 
 
