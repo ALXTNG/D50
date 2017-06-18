@@ -1,24 +1,33 @@
+<!DOCTYPE html>
+{% extends "base_generic.html" %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'workinprogress/style.css' %}" />
 
-<!DOCTYPE html>
-<html>
-<head>
+      <!-- thisis the bit that extends the base_generic html thing -->
 
+{% block content %}
+
+<div style="margin:0 auto;text-align:center">
+      <!-- Div align in the middle -->
+      <div style="margin-left:auto;margin-right:auto;text-align:center">
+       
 <h1>NEXT-Grenoble</h1>
 
-<hr width="600" align="left" size="0.2" color = 'black'>
-Contacts: <a href="mailto:contact.next.grenoble@gmail.com">contact.next.grenoble@gmail.com</a>
-<hr width="600" align="left" size="2" color = 'black'>
+<hr align="left" size="0.2" color = 'black'>
+Contacts: <a href="mailto:contact@next-grenoble.fr">contact@next-grenoble.fr</a>
+<hr  align="left" size="2" color = 'black'>
 
 
 <p>A website developed by</p>
-<p>Alessandro Tengattini</p>
+<p>Alessandro Tengattini</p>    
+      </div>  
+</div>  
    
-       
-</body>
-</html>
+{% endblock %}   
+
+
+
+
 
 
 
