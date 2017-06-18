@@ -155,36 +155,6 @@
       
       
 
-					<br>
-					
-					<p 
-          class="pull-right">
-<!--
-          this is to iterate through the tags
--->
-          {% for tag in post.tag.all %}
-          <span class="label label-default">{{tag}}</span>
-          {% endfor %}
-           
-          </p>
-					<ul class="list-inline">
-<!--
-            formatting the pubblication date.
--->
-						<li><a href="#">{{ post.pub_date|date:'d/m/Y' }}</a></li>
-						<li><a href="#"><span class="glyphicon glyphicon-comment"></span> 0 Comments</a></li>
-
-					</ul>
-				</article>
-      </div>
-      {% endfor %}
-    </ul>
-
-
-{% endif %}
-
-
-
 
 
 
