@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import FilesUploaded
 
 
 
@@ -17,6 +18,27 @@ def contact(request):
     
 def mailinglist(request):
     return render(request, 'workinprogress/mailinglist.html')
+    
+def proposalDetails(request):
+  
+    file_list = FilesUploaded.objects.all()
+    pdf_file = FilesUploaded.objects.filter(title__icontains="form")
+    context = {'file_list': file_list, 'pdf_file' : pdf_file }
+    return render(request, 'workinprogress/proposalDetails.html', context)
+    
+def proposalSubmission(request):
+  
+    file_list = FilesUploaded.objects.all()
+    pdf_file = FilesUploaded.objects.filter(title__icontains="form")
+    context = {'file_list': file_list, 'pdf_file' : pdf_file }
+    return render(request, 'workinprogress/proposalSubmission.html', context)
+    
+def downloadForm(request):
+    # Create the HttpResponse object with the appropriate headers.
+    pdf_file = FilesUploaded.objects.filter(title__icontains="form")
+    response = HttpResponse(pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="NeXT_ProposalSubmissionForm.pdf"'
+    return response
 
 #~ def index(request):
     #~ return HttpResponse("Hello, world. You're at the polls index.")

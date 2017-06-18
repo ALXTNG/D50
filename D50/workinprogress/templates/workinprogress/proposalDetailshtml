@@ -1,0 +1,20 @@
+{% if file_list %}
+    <ul>
+    {% for file in file_list %}
+        <li><a href="{{ file.fileUploaded.url }}/">{{ file.title }}</a></li>
+        <li><a href=" ../downloadform">{{ file.title }}</a></li>
+    {% endfor %}
+    </ul>
+    <ul>
+    {% for file in pdf_files %}
+        <li><a href="{{ file.fileUploaded.url }}/">{{ file.title }}</a></li>
+        <li><a href="{{ file.fileUploaded.url }}/">{{ file.fileFormat }}</a></li>
+    {% endfor %}
+    </ul>
+    
+    <li><a href="{{ pdf_file.fileUploaded.url }}/">{{ pdf_file.title }}</a></li>
+
+{% else %} 
+    <p>No files are available.</p>
+{% endif %}
+ 

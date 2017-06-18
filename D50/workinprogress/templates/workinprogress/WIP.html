@@ -1,27 +1,34 @@
+<!DOCTYPE html>
+{% extends "base_generic.html" %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'workinprogress/style.css' %}" />
 
-<!DOCTYPE html>
-<html>
-<head>
+      <!-- thisis the bit that extends the base_generic html thing -->
 
-</head>
-<body>
+{% block content %}
 
-<h1>Work in progess</h1>
+<div style="margin:0 auto;text-align:center">
+      <!-- Div align in the middle -->
+      <div style="margin-left:auto;margin-right:auto;text-align:center">
+       
+      <h1>Work in progess</h1>
+      <p>We apologise for any inconvenience</p>
 
-<p>We apologise for any inconvenience</p>
+      <img src="{% static "workinprogress/images/WIP.jpg" %}" alt="First Image"/ style="width:304px"> 
+  
+      </div>  
+</div>  
    
-       
-       <span style="font-size:60px; padding-left:30px; background:white;">&nbsp;</span>    
-       
-       <p>   </p>
-       
-       <img src="{% static "workinprogress/images/WIP.jpg" %}" alt="First Image"/ style="width:304px">
+{% endblock %}   
 
-</body>
-</html>
+
+
+
+
+
+
+
+
 
 
 
