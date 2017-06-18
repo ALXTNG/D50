@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<!-- Website Title & Description for Search Engine purposes -->
+		<title>NEXT-grenoble</title>
+		<meta name="NEXT Grenoble" content="NEutron and X-ray Imaging in Grenoble "/>
+		
+		<!-- Mobile viewport optimized -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		
+		<!-- Bootstrap CSS -->
+		<link href='static/bootstrap/css/bootstrap.min.css' rel="stylesheet" />
+		<link href='static/includes/css/bootstrap-glyphicons.css' rel="stylesheet" />
+	    <link href='static/includes/css/custom.css' rel="stylesheet" />
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+		
+	</head>
+
+
+</html>	
+<html>		
+    <body>
+
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="container">
+            <!-- Logo and responsive toggle -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img alt="Brand" <img src="{% static "home/images/logo.png" %}" , style="height:50px">            </div>
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="../../">Home</a>
+                    </li>
+					<li class="dropdown">
+
+						</ul>
+					</li>    
+                </ul>
+
+				<!-- Search -->
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    
+              
+
+<body>
+<!-- child content -->
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>	
+
+			
+
+
+

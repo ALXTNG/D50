@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+#~ from django.contrib.sites.models import Site
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -83,6 +84,14 @@ DATABASES = {
 }
 
 
+#~ current_site = Site.objects.get_current()
+#~ current_site.domain
+
+
+LOGIN_REDIRECT_URL = '../'
+#~ LOGIN_REDIRECT_URL = current_site.domain
+
+
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
@@ -119,5 +128,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+ENV_PATH = os.path.abspath(os.path.dirname(__file__))
+
 STATIC_URL = '/static/'
-STATIC_ROOT = 'D50/static/'
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = os.path.join(ENV_PATH, '../../D50/static/') 
+MEDIA_ROOT = os.path.join(ENV_PATH, '../../D50/media/') 
+
+

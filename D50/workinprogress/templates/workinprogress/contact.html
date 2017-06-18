@@ -1,20 +1,27 @@
+<!DOCTYPE html>
+{% extends "base_generic.html" %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'workinprogress/style.css' %}" />
 
-<!DOCTYPE html>
-<html>
-<head>
+      <!-- thisis the bit that extends the base_generic html thing -->
 
-</head>
-<body>
+{% block content %}
 
+<div style="margin:0 auto;text-align:center">
+      <!-- Div align in the middle -->
+      <div style="margin-left:auto;margin-right:auto;text-align:center">
+       
 <h1>Contact</h1>
 
 
-<p>For any information, please send an email to <a href="mailto:contact.next.grenoble@gmail.com">contact.next.grenoble@gmail.com</a></p>
+<p>For any information, please send an email to <a href="mailto:contact@next-grenoble.fr">contact@next-grenoble.fr</a></p>
       
-       
-</body>
-</html>
+      </div>  
+</div>  
+   
+{% endblock %}   
+
+
+
+
 
