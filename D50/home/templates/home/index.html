@@ -154,37 +154,6 @@
       
       
       
-      {% if post_list %}
-
-      
-    <ul>
-    {% for post in post_list %}
-    
-      <div class="row">
-				<article class="col-xs-12">
-					<h2>{{  post.title }}  </h2>
-					<p>{{  post.text }}</p>
-            {% if post.image %}              
-						<p><img class="img-responsive" src="{{  post.image.url }} "alt="" height="800" width="620"></p>
-            {%endif%}
-            {% if post.urllink %} 
-            <div class="embed-responsive embed-responsive-4by3">  
-            <iframe class="embed-responsive-item" src="{{  post.urllink }} " width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>           
-						</div>
-            <p><img class="img-responsive" alt="" height="800" width="620"></p>
-            {%endif%}
-            {% if post.extended_description|length > 0 %}
-            
-<!--
-   If there is any aextra text (if post.extended_description|length > 0 ) then use the accordion bootstrap stuff. please note that 
-   normally you would have href="#collapse"       and "#collapse" but if you do only the first one works, so you need to go and add a unique 
-   variable for example adding afterwards an iteratve counter -- so for example href = "#collapse{{ forloop.counter }}"
--->
-              <p></a><button data-parent="#accordion" href="#collapse{{ forloop.counter }}" class="btn btn-default" data-toggle="collapse">Read More</button></a></p>
-              <div id="collapse{{ forloop.counter }}" class="collapse">
-               <p> {{ post.extended_description }}</p>
-              </div>
-              {%endif%}
 
 					<br>
 					
