@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% extends "base_generic.html" %}
+
+{% load static %}
+
+
+      <!-- thisis the bit that extends the base_generic html thing -->
+
+{% block content %}
+
+
+		<!-- Left Column -->
+		<div class="col-sm-3">
+
+			<!-- List-Group Panel -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1 class="panel-title"><span class="glyphicon glyphicon-info-sign"></span> What is NEXT-Grenoble?</h1>
+				</div>
+				<div class="list-group">
+					<a href="#" class="list-group-item">Neutron and X-Ray imaging</a>
+					<a href="#Neutron_part" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span> Neutron imaging</a>
+					<a href="#" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span> X-Ray imaging</a>
+
+					<a  href="../../workinprogress/404" class="list-group-item"> Our instrument: D50</a>
+                  
+          {% if not user.is_authenticated %} 
+              <a href="../../login/" class="list-group-item">Some of our results</a>
+          {% else %} 
+              <a href="../../workinprogress/404" class="list-group-item">Some of our results</a>
+          {% endif %} 
+            
+          {% if not user.is_authenticated %} 
+              <a href="../../login/" class="list-group-item">Forum</a>
+          {% else %} 
+              <a href="../../workinprogress/404" class="list-group-item">Forum</a>
+          {% endif %} 
+          
+          {% if not user.is_authenticated %} 
+              <a href="../../login/" class="list-group-item">Repository</a>
+          {% else %} 
+              <a href="../../workinprogress/404" class="list-group-item">Repository</a>
+          {% endif %} 
+
+				</div>
+			</div>
+ 
+ 
+<!--
+%from PSI 
+-->
+Neutron Imaging (NI) is a radiographic testing method using neutrons. As such it is quite similar to X-ray, which is well known from medical applications. Neutrons are able to transmit material layers of certain thickness which depends on the specific attenuation properties of that material. This enables to establish neutron imaging as a non-destructive inspection method which can favorably be applied for research and practical, industrial related problems. A similarity and complementarities to the conventional X-ray imaging are given. Because different materials have different attenuation behaviour the neutron beam passing through a sample can be interpreted as signal carrying information about the composition and structure of the sample. 
+
+<div id="Neutron_part">
+
+{% endblock %}  
