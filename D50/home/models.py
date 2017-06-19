@@ -18,7 +18,7 @@ class Post(models.Model):
     subtitle=models.TextField( blank=True, help_text='expand on the title')
     text = models.TextField( blank=True, help_text='add text')
     extended_description=models.TextField( blank=True, help_text='expand some more if needed')
-
+ 
     #~ slug = models.CharField('slug', max_length=150, unique=True, editable=False , help_text='do not change please') # the editable=False is to avoid admins from writing the slug, which is instead auto-generated -- see below.
     # this one is a unique -in this case- tag one can use for referencing the post I do not want to use the Slugfield to copy the url structure of https://www.djangorocks.com/snippets/creating-a-unique-slug.html
     
