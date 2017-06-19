@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^proposals/', views.proposalDetails, name='proposalDetails'),
     url(r'^downloadform/', views.downloadForm, name='downloadForm'),
     url(r'^proposalsubmission/', views.proposalSubmission, name='proposalSubmission'),
+    url(r'^neutron_x_ray_matter/', views.neutron_x_ray_matter, name='neutron_x_ray_matter'),
 ]
