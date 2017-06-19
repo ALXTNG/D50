@@ -1,1 +1,2 @@
- D50/db.sqlite3
+*.sqlite3 
+*.pyc
