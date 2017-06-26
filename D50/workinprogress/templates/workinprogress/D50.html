@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+{% extends "base_generic.html" %}
+
+{% load static %}
+
+
+      <!-- thisis the bit that extends the base_generic html thing -->
+
+{% block content %}
+
+
+</video>
+
+<div class="container-fluid">
+		<div class="col-sm-3">
+
+			<!-- List-Group Panel -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1 class="panel-title"><span class="glyphicon glyphicon-info-sign"></span> What is NeXT-Grenoble?</h1>
+				</div>
+				<div class="list-group">
+					<a href="../neutron_x_ray_matter" class="list-group-item">Neutron and X-Ray imaging</a>
+
+
+					<a  href="#" class="list-group-item"> Our instrument: D50</a>
+					<a href="#Source" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>The Neutron source </a>
+					<a href="#MRDet" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>The medium resolution detector </a>                  
+					<a href="#2017" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>2017 upgrades </a>                  
+					<a href="#Environment" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>The testing environment </a>                  
+					<a href="#Workspace" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>The working space </a>                  
+					<a href="#Additional_facilities" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>Additional facilities </a>                  
+          
+          
+          
+          
+          {% if not user.is_authenticated %} 
+              <a href="../../login/" class="list-group-item">Some of our results</a>
+          {% else %} 
+              <a href="../../workinprogress/404" class="list-group-item">Some of our results</a>
+          {% endif %} 
+            
+          {% if not user.is_authenticated %} 
+              <a href="../../login/" class="list-group-item">Forum</a>
+          {% else %} 
+              <a href="../../workinprogress/404" class="list-group-item">Forum</a>
+          {% endif %} 
+           
+          {% if not user.is_authenticated %} 
+              <a href="../../login/" class="list-group-item">Repository</a>
+          {% else %} 
+              <a href="../../workinprogress/404" class="list-group-item">Repository</a>
+          {% endif %} 
+
+				</div>
+    </div>
+  </div>
+ 
+ 
+<div class="col-sm-7">
+<!--
+  <div id="Source">
+<div>
+ <p><img class="img-responsive" src="{% static "home/images/source.jpg" %}" style="width: 30%; height: 30%" align="right" valign="middle" vspace="5" hspace="5"/>   
+    <h1>The Neutron source</h1>
+    <ul>   
+        <li> Up to 170 mm field of view </li>
+        <li> Down to 30 micron real resolution </li>
+        <li> Up to 100 Hz (1 minute Tomographies and below)</li>
+        <li> 2000 x 2000 pixels</li></p>
+<p>   </p>
+</div>       
+-->
+  <div id="Source"></div>
+
+    <h1>The Neutron source</h1>
+    The key elements in a neutron tomograph are the source of neutrons and the <a href="#MRDet">detector</a>, as well as the surounding <a href="#Environemnt">environment</a>
+    <ul>   
+        <li> The <a href="https://www.ill.eu/" >ILL</a> is the world's most powerful neutron source with its 1.5E15 neutrons per second per cm2 (n/s/cm2) </li>
+        <li> Neutron Flux at the instrument: 5*10E7 n/s/cm2 (for a collimation L/D = 660)  <u>soon to be upgraded</u> </li>
+        <li> Collimation: L = 10m, Range of pinholes from 15 mm to 1.5 mm (<u>soon up to be increased up 30/40 mm</u>). For more information about the meaning collimation visit <a href="https://www.ill.eu/" >this</a>. </li>
+        <li> Mean neutron energy: 12.3 meV, 2.6 Å (cold neutrons) </li>
+    </ul>
+<img class="img-responsive" src="{% static "home/images/source.jpg" %}" style="width: 50%; height: 50%" >   
+
+
+<!--
+<div>
+       
+       <div id="MRDet">
+    <p><img class="img-responsive" src="{% static "home/images/midres.png" %}" style="width: 30%; height: 30%" align="right" valign="middle" vspace="5" hspace="5"/>   
+        <h1>The Medium resolution detector</h1>
+
+    <ul>   
+        <li> Up to 170 mm field of view </li>
+        <li> Down to 30 micron real resolution </li>
+        <li> Up to 100 Hz (1 minute Tomographies and below)</li>
+        <li> 2000 x 2000 pixels</li></p>
+</div>       
+-->
+       
+       <div id="MRDet"></div>
+        <h1>The medium resolution detector</h1>
+        A first medium resolution neutron tomograph was developed in 2016, aimed at maximum flexibility for a broad range of applications. Several <a href = "#2017">upgrades</a> are being developed in 2017.
+
+    <ul>   
+        <li> Up to 170 mm field of view </li>
+        <li> Down to 30 micron real resolution </li>
+        <li> Up to 100 Hz (1 minute Tomographies and below)</li>
+        <li> 2000 x 2000 pixels</li>
+    </ul>
+    <img class="img-responsive" src="{% static "home/images/midres.png" %}" style="width: 20%; height: 20%" >
+
+
+<!--
+<div>
+<div id="2017">
+
+<p><img class="img-responsive" src="{% static "home/images/2017_works.png" %}" style="width: 30%; height: 30%" align="right" valign="middle" vspace="5" hspace="5"/>   
+
+    <h1>2017 Works</h1>
+    
+
+    <ul> 
+      <li> Development of a <b>high-resolution detector</b> </li>
+      <ul>
+        <li> 10 micrometer <i>real</i> resolution </li>
+        <li> Fields of view from 10x10 to 50x50 mm  </li>
+      </ul>
+      <li> Addition of an <b>x-ray tomograph</b> for simultaneous x-ray/neutron acquisitions </li>
+        <ul>
+          <li> 5 micrometer <i>real</i> resolution </li>
+          <li> Fields of view from 8x10 mm to 250x300 mm  </li>
+          <li> Source: 75 W, 40 - 150 kV  </li>
+      </ul>
+    </ul>
+</p> 
+</div>   
+-->
+<div id="2017"></div>
+
+
+    <h1>2017 upgrades</h1>
+    Several upgrades to the existing instrument, as well as new functionalities are being develeoped during the course of 2017.
+
+    <ul> 
+      <li> Development of a <b>high-resolution detector</b> </li>
+      <ul>
+        <li> 10 micrometer <i>real</i> resolution </li>
+        <li> Fields of view from 10x10 to 50x50 mm  </li>
+      </ul>
+      <li> Addition of an <b>x-ray tomograph</b> for simultaneous x-ray/neutron acquisitions </li>
+        <ul>
+          <li> 5 micrometer <i>real</i> resolution </li>
+          <li> Fields of view from 8x10 mm to 250x300 mm  </li>
+          <li> Source: 75 W, 40 - 150 kV  </li>
+      </ul>
+      <li> Increase of the radioprotection to increase the size of the pinholes up to 30 or 40 mm, allowing even <b>higher flux</b>
+    </ul>
+
+<img class="img-responsive" src="{% static "home/images/2017_works.png" %}" style="width: 40%; height: 40%" >
+
+      <div id="Environment"></div>
+
+    <h1>The testing environment</h1>
+The Tomographs are supported by a granite table, for maximal thermal and vibrational stability, crucial in long and high-resolution acquisitions.
+       <ul>
+          <li>The x-ray setup is mounted on a rotating apparatus to minimise the cross-talk with the neutron instrument.</li>
+          <li>In the spirit of the instrument, thought for material science application the rotation stage (a <a href="https://www.newport.com/p/RV350PP" >Newport RV350PP</a>) is hollow and ample space is left above and below it to accomodate large testing equipments </li>
+          <li> The structure is designed to support equipments up to several hundreds of kilograms.</li>
+      </ul>
+          <div class="embed-responsive embed-responsive-4by3">  
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/4gPLJsk-9Ig " style="width: 70%; height: 70%"  frameborder="0" style="border:0" allowfullscreen></iframe>           
+						</div>
+
+            
+
+
+    <div id="Workspace"></div>
+
+    <h1>The working space</h1>
+    The tomographs are contained within a sructured aimed at providing radiological protection from the ionising radiation to the users, named casemate. 
+    <ul>
+      <li>The casemate is ample (~20 m2), to accomodate all kinds of testing equipment </li>
+      <li>Within the casemate can be found compressed air, inlet and outlet water, and exhaust gas recuperation systems </li>
+    </ul>
+      <img class="img-responsive" src="{% static "home/images/casemate.png" %} "alt="" style="width: 50%; height: 50%" >
+
+    <div id="Additional_facilities"> </div>
+    <h1>Additional facilities</h1>
+        NeXT was thought for engineering and material science applications and as such offers an ever increasing range of equipment for hydro-chemo-mechanical testing
+    <ul>
+      <li>Workshop with a range of classic tools</li>
+      <li>Machining equipment (for non-active materials)</li>
+      <li>Miscellaneous laboratory equipment (scales, oven..)</li>
+      <li>Hydraulic equipment (e.g. a servocontrolled syringe pump going to 90MPa)</li>
+      <li>Several bespoke equipments have been developed by the users, some of which can be borrowed from them. For more information please contact us at <a href="mailto:contact@next-grenoble.fr?subject=mailinglist">contact@next-grenoble.fr</a></li>
+    </ul>
+             <ul>
+      </ul>
+            
+
+      <img class="img-responsive" src="{% static "home/images/cetoni.jpg" %} "alt="" style="width: 50%; height: 50%">
+
+
+    
+
+  </div>
+</div>
+            
+            
+{% endblock %}  
