@@ -10,6 +10,9 @@ def WIP(request):
 def aboutNEXT(request):
     return render(request, 'workinprogress/aboutNEXT.html')
     
+def aboutwebsite(request):
+    return render(request, 'workinprogress/aboutwebsite.html')
+    
 def logo(request):
     return render(request, 'workinprogress/logo.html')
     
@@ -21,6 +24,9 @@ def mailinglist(request):
     
 def neutron_x_ray_matter(request):
     return render(request, 'workinprogress/neutron_x_ray_matter.html')
+    
+def D50(request):
+    return render(request, 'workinprogress/D50.html')
     
 def proposalDetails(request):
   
@@ -40,6 +46,7 @@ def downloadForm(request):
     # Create the HttpResponse object with the appropriate headers.
     pdf_file = FilesUploaded.objects.filter(title__icontains="form")
     response = HttpResponse(pdf_file, content_type='application/pdf')
+    response['Content-Type'] = 'application/pdf'
     response['Content-Disposition'] = 'attachment; filename="NeXT_ProposalSubmissionForm.pdf"'
     return response
 

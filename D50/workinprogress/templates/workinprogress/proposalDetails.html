@@ -23,8 +23,12 @@
           <li>A short (maximum 2 pages) description of the scientific rationale of the proposal and of the proposed experimental campaign  </li>
 					<li>To help us assess the technical feasibility of the proposal the following form must also be completed and submitted </li>
           </p>
+<!--
           <p> <a href=" ../downloadform" class="btn btn-default">Download form</a></p>
- <BR />
+-->
+          {% for file in pdf_file %}
+            <p> <a href="{{ file.fileUploaded.url}}/" class="btn btn-default">Download form</a></p>
+          {% endfor %} <BR />
           
           <p><b>Deadlines: </b></p>
           <p> The proposal reound will open on the <b>31st of July 2017</b> and close on the <b>31st op September 2017</b> </p>
