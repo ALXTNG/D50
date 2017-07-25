@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from .secret_settings import *
+#~ import secret_settings
+
 #~ from django.contrib.sites.models import Site
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -20,11 +23,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '1)oium_=!#qr0^g^)o#_h9y%t6pn&zzv6g%yan_er__i=308%z'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -162,10 +160,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #~ EMAIL_HOST_USER = 'alessandro.tengattini@gmail.com'
 #~ EMAIL_HOST_PASSWORD = 'I thought I needed a safer password'
 
-DEFAULT_FROM_EMAIL = 'contact@next-grenoble.fr'
-SERVER_EMAIL = 'contact@next-grenoble.fr'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'mail.gandi.net'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'contact@next-grenoble.fr'
-EMAIL_HOST_PASSWORD = 'pastascotta'
+

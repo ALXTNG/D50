@@ -151,7 +151,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=30, blank=True)
     institution = models.TextField(max_length=500, blank=True)
     role = models.TextField(max_length=500, blank=True)
-    proposals = models.ManyToManyField(Proposal, related_name='profile_of_proposal', help_text='this is for the proposals')
+    proposals = models.ManyToManyField(Proposal, related_name='profile_of_proposal', help_text='this is for the proposals', blank=True)
 
     def __str__(self):  # __unicode__ for Python 2
         return self.user.username
