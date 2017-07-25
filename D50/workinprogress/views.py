@@ -2,8 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import FilesUploaded
 
+from django.contrib.auth.decorators import user_passes_test
 
-
+def forumtest(user):
+    return user.is_authenticated() and user.has_perm("home.can_see_forum")
+    
 def WIP(request):
     return render(request, 'workinprogress/WIP.html')
 
@@ -24,7 +27,8 @@ def mailinglist(request):
     
 def neutron_x_ray_matter(request):
     return render(request, 'workinprogress/neutron_x_ray_matter.html')
-    
+
+#~ @user_passes_test(D50test, login_url="/login/")
 def D50(request):
     return render(request, 'workinprogress/D50.html')
     

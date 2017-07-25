@@ -24,24 +24,24 @@
 					<a href="#Neutron_part" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>N/x interaction with matter</a>
 					<a href="#Neutron_sources" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>Reading material and sources</a>
 
-					<a  href="../D50" class="list-group-item"> Our instrument: D50</a>
+					<a  href="{% url 'D50' %}" class="list-group-item"> Our instrument: D50</a>
                   
           {% if not user.is_authenticated %} 
-              <a href="../../login/" class="list-group-item">Some of our results</a>
+              <a href="{% url 'login' %}" class="list-group-item">Some of our results</a>
           {% else %} 
-              <a href="../../workinprogress/404" class="list-group-item">Some of our results</a>
+              <a href="{% url 'WIP' %}" class="list-group-item">Some of our results</a>
           {% endif %} 
             
           {% if not user.is_authenticated %} 
-              <a href="../../login/" class="list-group-item">Forum</a>
+              <a href="{% url 'login' %}" class="list-group-item">Forum</a>
           {% else %} 
-              <a href="../../workinprogress/404" class="list-group-item">Forum</a>
+              <a href="{% url 'WIP' %}" class="list-group-item">Forum</a>
           {% endif %} 
            
           {% if not user.is_authenticated %} 
-              <a href="../../login/" class="list-group-item">Repository</a>
+              <a href="{% url 'login' %}" class="list-group-item">Repository</a>
           {% else %} 
-              <a href="../../workinprogress/404" class="list-group-item">Repository</a>
+              <a href="{% url 'WIP' %}" class="list-group-item">Repository</a>
           {% endif %} 
 
 				</div>
@@ -88,14 +88,14 @@ Unlike x-rays, which interact prevalently with the outer electron shell of the a
 This means that light atoms like hydrogen, oxygen, etc. are relatively invisible to x-rays, while quite visible with neutrons. 
 Conversely, several metals (which highly absorb x-rays) are comparatively transparent to neutrons thus allowing quite high penetration depth, for example in the thick metal casing required to impose extreme thermo-hydro-mechanial conditions. </p>
 
-<p>The high complementarity of these two techniques is further highlighted in the image below, showing indicative neutron and x-ray cross sections (<i>i.e.</i> their contrast in an image, <a href="#Beer" >see section below</a>) for all the elements on the periodic table.</p>
+<p>The high complementarity of these two techniques is further highlighted in the image below, showing indicative neutron and x-ray cross sections (<i>i.e.</i> their contrast in an image, see below) for all the elements on the periodic table.</p>
 <p><img class="img-responsive" src="{% static "home/images/XN.jpg" %}" style="width: 80%; height: 80%" >   </p>
 <p> Unlike for x-rays, neutrons can be captured by nuclei, which get activated and produce instable (mostly short lived) radioactive isotopes. 
 The radioactivity level of the tested samples need therefore to be checked before they can leave the beamline. </p>
 
 <p> One of main differences between neutron and x-ray imaging is their flux and therefore maximum resolution. Thanks to very high brightness of synchrotron sources, in fact, it is possible to achieve very high spatial resolutions (<i>e.g.</i> in the nanometer range) and very fast scans.
 Also laboratory x-ray sources (µ-focus x-ray tubes) allow for high resolution, as it is possible to take advantage of the diverging geometry of their beam to achieve high resolutions (<i>e.g.</i> 1 µm and below), although the scan speed is in some cases comparable to that of neutron imaging.
-In neutrons the more modest flux (even at the ILL, which privides the world's highest flux), the parallel geometry of the beam as well as the thickness of the available scintillators, limit the <a href="../D50" >maximum achievable resolution and the scanning speed.</a>
+In neutrons the more modest flux (even at the ILL, which privides the world's highest flux), the parallel geometry of the beam as well as the thickness of the available scintillators, limit the <a href="{% url 'D50' %}" >maximum achievable resolution and the scanning speed.</a>
 </p>
 
 
@@ -108,7 +108,7 @@ In neutrons the more modest flux (even at the ILL, which privides the world's hi
 <div style="clear: both"></div>
 </div></p>
 
-<p>  The cross-section σ represents the probability of neutrons to interact with matter, which is particularly high for cold neutrons, as in <a href="../D50" >our instrument</a>.
+<p>  The cross-section σ represents the probability of neutrons to interact with matter, which is particularly high for cold neutrons, as in <a href="{% url 'D50' %}" >our instrument</a>.
 Tables for the cross-section of the different elements can be found at the links below. Thanks to the above law
 it is straightforward to extract quantitative measures of the material composition (<i>e.g. hydrogen content</i>), 
  from radiograms if the sample shape and dimension d are known. 

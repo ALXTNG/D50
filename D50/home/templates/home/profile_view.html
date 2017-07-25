@@ -1,0 +1,114 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<div style="margin:0 auto;text-align:left">
+      <!-- Div align in the middle -->
+
+	  <div class="col-sm-8">
+      <div style="margin-center:auto;margin-right:auto;text-align:left">
+        <p><h5> Hello {{ user.get_username }}, as a committee member, below you can see the user details of {{profile_id_requested.get_username}}. </h5> </p>
+  
+      	<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-info-sign"></span>
+						Profile details
+					</h3>
+  
+				</div>    
+
+        <div class="panel-body">
+         <ul>
+          {% if profile_id_requested.first_name == None or not profile_id_requested.first_name.strip%}
+            <li>First Name: <i>unknown</i> </li>
+          {% else %}
+            <li>First Name: {{ profile_id_requested.first_name }}</li>
+          {% endif %}         <li> Last Name: {{profile_id_requested.last_name}}</li>
+         <li> Email: <a href = "mailto:{{profile_id_requested.email}} " >{{profile_id_requested.email}}</a> </li>
+                
+          {% if profile_id_requested.profile.institution == None or not profile_id_requested.profile.institution.strip %}
+            <li>Institution: <i>unknown</i></li>
+          {% else %}
+            <li>Institution: {{ profile_id_requested.profile.institution }}</li>
+          {% endif %}
+          
+          {% if profile_id_requested.profile.role == None or not profile_id_requested.profile.role.strip %}
+            <li>Role: <i>unknown</i> </li>
+          {% else %}
+            <li>Role: {{ profile_id_requested.profile.role }}</li>
+          {% endif %}
+          
+          {% if profile_id_requested.profile.location == None or not profile_id_requested.profile.location.strip %}
+            <li>Location: <i>unknown</i></li>
+          {% else %}
+            <li>Location: {{ profile_id_requested.profile.location }}</li>
+          {% endif %}
+          
+    
+    
+    
+        </ul>
+        
+  <div class="panel panel-default">
+  <div class="panel-heading">Submitted proposals</div>
+  <div class="panel-body" style="min-height: 1; max-height: 10;">
+  
+  
+          {% if profile_id_requested.profile.proposals.all|length == 0 %}
+            <p>This user has not yet submitted any proposal </p>
+          {% else %}
+            {% for proposal in profile_id_requested.profile.proposals.all%}
+              <li>A proposal entitled <a href="{% url "proposal_view" oid=proposal.id %}">{{proposal.proposal_title}}</a> on {{proposal.datetime|date:'Y-m-d'}} </li>
+            {% endfor %}
+          {% endif %}
+                
+
+  
+  
+  </div>
+</div>
+    
+                 <p><a href="{% url 'list_profiles' %}" class="btn btn-default">List of Profiles</a></p>
+
+                    </div>
+            </div>  
+        </div>
+        </div>
+    </div>
+    </div>
+  
+  
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+<!--
+minimal working example
+-->
+
+<!--
+-----------{ block content %}
+-->
+<!--
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+  
+  
+{ endblock %}
+-->
+
+
