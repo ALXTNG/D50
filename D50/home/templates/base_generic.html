@@ -11,9 +11,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		
 		<!-- Bootstrap CSS -->
-		<link href='static/bootstrap/css/bootstrap.min.css' rel="stylesheet" />
-		<link href='static/includes/css/bootstrap-glyphicons.css' rel="stylesheet" />
-	    <link href='static/includes/css/custom.css' rel="stylesheet" />
+		<link href='/static/bootstrap/css/bootstrap.min.css' rel="stylesheet" />
+		<link href='/static/includes/css/bootstrap-glyphicons.css' rel="stylesheet" />
+	    <link href='/static/includes/css/custom.css' rel="stylesheet" />
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
@@ -40,7 +40,7 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="../../">Home</a>
+                        <a href="{% url 'home' %}">Home</a>
                     </li>
 					<li class="dropdown">
 

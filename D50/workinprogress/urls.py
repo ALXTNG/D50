@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     url(r'^404/', views.WIP, name='WIP'),
     url(r'^about_NeXT/', views.aboutNEXT, name='aboutNEXT'),
-    url(r'^about_this_website/', views.aboutwebsite, name='aboutNEXT'),
+    url(r'^about_this_website/', views.aboutwebsite, name='aboutwebsite'),
     url(r'^logo/', views.logo, name='logo'),
     url(r'^contact/', views.contact, name='contact'),
     url(r'^mailinglist/', views.mailinglist, name='mailinglist'),

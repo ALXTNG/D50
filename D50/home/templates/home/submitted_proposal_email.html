@@ -1,0 +1,17 @@
+{% autoescape off %}
+Dear {{ first_name }} {{ last_name }} ({{ user }}),
+
+Thanks for submitting your proposal entitled " {{ title }} " !
+{% if comments_exist %}
+You have commented that "{{ comments }}".
+{% endif %}
+In attachment you will find the submitted files (the rationale of the proposal as well as the technical addendum). Please make sure they correspond to the files you intended to send and that they can be opened with a pdf reader.
+You can follow and edit your proposals at http://{{ domain }}{% url 'user_status' %} .
+
+We will also come back to you (through this email) with any comment from the technical support team and, after the meeting of Scientific and Steering committees, with their decision about this proposal. 
+
+Thanks again for the interest shown for NeXT!
+
+Kind Regards
+Alessandro and the NeXT Team
+{% endautoescape %}

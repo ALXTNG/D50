@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'home',
     'workinprogress',
     'django.contrib.auth',
@@ -40,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles', 
+    'django.contrib.admin',
+
 ]
 
 MIDDLEWARE = [
@@ -136,4 +137,35 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(ENV_PATH, '../../D50/static/') 
 MEDIA_ROOT = os.path.join(ENV_PATH, '../../D50/media/') 
 
+#~ STATICFILES_DIRS = (
+  #~ os.path.join(ENV_PATH, 'static/'),
+#~ )
 
+#~ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+#~ EMAIL_HOST = 'mail.gandi.net'
+#~ EMAIL_HOST = 'smtp.gmail.com'
+#~ EMAIL_PORT = 465
+#~ EMAIL_HOST_USER = 'alessandro.tengattini@gmail.com'
+#~ EMAIL_HOST_PASSWORD = 'I thought I needed a safer password'
+#~ EMAIL_USE_TLS = True
+#~ send_mail('test email', 'hello world', 'alessandro.tengattini@gmail.com', ['alessandro.tengattini@gmail.com','alextenga86@hotmail.it'])
+
+#~ send_mail('test email', 'hello world', 'contact@next-grenoble.fr', ['alessandro.tengattini@gmail.com','alextenga86@hotmail.it'])
+
+#~ DEFAULT_FROM_EMAIL = 'alessandro.tengattini@gmail.com'
+#~ SERVER_EMAIL = 'alessandro.tengattini@gmail.com'
+#~ EMAIL_USE_TLS = True
+#~ EMAIL_HOST = 'smtp.gmail.com'
+#~ EMAIL_PORT = 587
+#~ EMAIL_HOST_USER = 'alessandro.tengattini@gmail.com'
+#~ EMAIL_HOST_PASSWORD = 'I thought I needed a safer password'
+
+DEFAULT_FROM_EMAIL = 'contact@next-grenoble.fr'
+SERVER_EMAIL = 'contact@next-grenoble.fr'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'mail.gandi.net'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'contact@next-grenoble.fr'
+EMAIL_HOST_PASSWORD = 'pastascotta'

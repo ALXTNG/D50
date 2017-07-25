@@ -48,8 +48,8 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></a>
 						<ul class="dropdown-menu" aria-labelledby="about-us">
-							<li><a href="./workinprogress/about_NeXT">About NeXT-Grenoble</a></li>
-							<li><a href="./workinprogress/about_this_website">About this website</a></li>
+							<li><a href="{% url 'aboutNEXT' %}">About NeXT-Grenoble</a></li>
+							<li><a href="{% url 'aboutwebsite' %}">About this website</a></li>
 						</ul>
 					</li>  
           <ul class="nav navbar-nav">
@@ -86,26 +86,27 @@
 				</div>
         
 				<div class="list-group">
-					<a href="./workinprogress/neutron_x_ray_matter" class="list-group-item">Neutron and X-Ray imaging</a>
-					<a href="./workinprogress/D50" class="list-group-item">Our instrument: D50</a>
+					<a href="{% url 'neutron_x_ray_matter' %}" class="list-group-item">Neutron and x-Ray imaging</a>
+					<a href="{% url 'D50' %}" class="list-group-item">Our instrument: D50</a>
                   
           {% if not user.is_authenticated %} 
-              <a href="/login/" class="list-group-item">Some of our results</a>
+              <a href="{% url 'login' %}" class="list-group-item">Some of our results</a>
           {% else %} 
-              <a href="./workinprogress/404" class="list-group-item">Some of our results</a>
+              <a href="{% url 'WIP' %}"  class="list-group-item">Some of our results</a>
           {% endif %} 
             
           {% if not user.is_authenticated %} 
-              <a href="/login/" class="list-group-item">Forum</a>
+              <a href="{% url 'login' %}"  class="list-group-item">Forum</a>
           {% else %} 
-              <a href="./workinprogress/404" class="list-group-item">Forum</a>
+              <a href="{% url 'WIP' %}" class="list-group-item">Forum</a>
           {% endif %} 
           
           {% if not user.is_authenticated %} 
-              <a href="/login/" class="list-group-item">Repository</a>
+              <a href="{% url 'login' %}"  class="list-group-item">Repository</a>
           {% else %} 
-              <a href="./workinprogress/404" class="list-group-item">Repository</a>
+              <a href="{% url 'WIP' %}" class="list-group-item">Repository</a>
           {% endif %} 
+
 
 				</div>
 			</div>
@@ -120,10 +121,10 @@
 
 				<div class="panel-body">
 					<p>We are open to external proposals. </p>
-					<p><a href="./workinprogress/contact" class="btn btn-default">Contact us</a></p>
-					<p><a href="./workinprogress/proposals" class="btn btn-default">Proposal guidelines</a></p>
-					<p><a href="./workinprogress/proposalsubmission" class="btn btn-default">Submit a proposal</a></p>
-					<p><a href="./workinprogress/proposalsubmission" class="btn btn-default">Follow your proposals</a></p>
+					<p><a href="{% url 'contact' %}" class="btn btn-default">Contact us</a></p>
+					<p><a href="{% url 'proposalDetails' %}" class="btn btn-default">Proposal guidelines</a></p>
+					<p><a href="{% url 'proposalSubmission' %}" class="btn btn-default">Submit a proposal</a></p>
+					<p><a href="{% url 'proposalSubmission' %}" class="btn btn-default">Follow your proposals</a></p>
 				</div>
 			</div>
 
@@ -140,7 +141,7 @@
 					<div class="btn-group" role="group">
 						<p></p>
 						<a href="https://twitter.com/@NEXT_Grenoble" class="twitter-follow-button" data-show-count="false">Follow @NeXT_Grenoble</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-						<p><a href="./workinprogress/mailinglist" class="btn btn-default">Subscribe mailing list</a></p>
+						<p><a href="{% url 'mailinglist' %}" class="btn btn-default">Subscribe mailing list</a></p>
 					</div>
 				</div>
 			</div>	
@@ -154,7 +155,7 @@
 			<!-- Alert -->
 			<div class="alert alert-success alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<strong>The next  <u><a href="./workinprogress/proposals"class="alert-link">proposal round </a></u> will open on the 31st of July 2017</strong> 
+				<strong>The next  <u><a href="{% url 'proposalDetails' %}" class="alert-link">proposal round </a></u> will open on the 31st of July 2017</strong> 
 			</div>		
 
       
@@ -309,8 +310,22 @@
                     </div>
                     
                   <div class="controls">
-                    <button type="submit" class="btn btn-default">Login</button>
-                    <input type="checkbox" checked="checked"> Remember me
+                    <p><button type="submit" class="btn btn-default">Login</button>
+                    <input type="checkbox" checked="checked"> Remember me</p>
+                  </div>
+                  
+                  <div class="controls">
+                    <p><a href="{% url 'signup' %}" class="btn btn-default">Sign up</a></p>
+
+                  </div>
+                  
+                  <div>
+                    
+                  <div class="controls">
+                   <p> <a href="{% url 'password_reset' %}" class="btn btn-default">Lost your password?</a></p>
+
+                  
+                  </div>
                   </div>
               </form>
             </div>  
@@ -320,13 +335,12 @@
 
           
             {% else %} 
-						Log Out
+						You are logged in
 					</h3>
             </div>
               <div class="panel-body">
-                <form>
-                  <p><a href="/logout/" class="btn btn-default">Log Out</a></p>
-                </form>
+                  <p><a href="{% url 'logout_page' %}" class="btn btn-default">Log Out</a></p>
+                  <p><a href="{% url 'update_profile' %}" class="btn btn-default">Edit Profile</a></p>
               </div>
             </div>      
       

@@ -1,0 +1,103 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<div style="margin:0 auto;text-align:left">
+      <!-- Div align in the middle -->
+
+	  <div class="col-sm-8">
+      <div style="margin-center:auto;margin-right:auto;text-align:left">
+        <p><h5> Hello {{ user.get_username }}, as a committee member, you can see below the details regarding the proposal:</p>
+         <p>{{proposal_id_requested.proposal_ID}} from {{proposal_id_requested.profile_of_proposal.all.0.user.first_name}} {{proposal_id_requested.profile_of_proposal.all.0.user.last_name}}. </h5> </p>
+
+      	<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-info-sign"></span>
+						Proposal details
+					</h3>
+				</div>    
+
+        <div class="panel-body">
+          
+
+  
+
+
+    <p>This proposal, entitled <b>"{{proposal_id_requested.proposal_title}}"</b> was created by <a href="{% url "profile_view" oid=proposal_id_requested.profile_of_proposal.all.0.user.id %}">{{ proposal_id_requested.user_proposal }}</a> and was last edited on {{proposal_id_requested.datetime}}
+    It belongs to the proposal round number {{proposal_id_requested.proposal_round}}
+    </p>
+
+    {% if proposal_id_requested.comments == None or not rproposal_id_requested.comments.strip %}
+        <p>It was commented by the authors that "{{proposal_id_requested.comments}}"
+    
+<!--
+        <div style="outline:#000 thin solid; display:table-cell; width:700px; vertical-align:top">
+          "{{proposal_id_requested.comments}}".
+        </div>
+-->
+    {% endif %}
+
+          
+          <p><a href={{proposal_id_requested.proposal_rationale.url}} class="btn btn-default">Download the rationale</a></p>
+         <p><a href={{proposal_id_requested.proposal_technical_support.url}} class="btn btn-default">Download the techanical addendum</a></p>
+
+
+<!--
+  <div class="panel-heading">Proposal ID</div>
+-->
+
+<div class="panel panel-default">
+  <div class="panel-heading">Response of the Scientific Committee</div>
+  <div class="panel-body" style="min-height: 1; max-height: 10;">{{proposal_id_requested.response_scientific_committee}}</div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Response of the Steering Committee</div>
+  <div class="panel-body" style="min-height: 1; max-height: 10;">{{proposal_id_requested.response_steering_committee}}</div>
+</div>
+        </div>
+           <p><a href="{% url 'list_proposals' %}" class="btn btn-primary">Back to the list of Proposals</a></p>
+         
+         
+                    </div>
+            </div>  
+        </div>
+        </div>
+    </div>
+    </div>
+  
+  
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+<!--
+minimal working example
+-->
+
+<!--
+-----------{ block content %}
+-->
+<!--
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+  
+  
+{ endblock %}
+-->
+
+

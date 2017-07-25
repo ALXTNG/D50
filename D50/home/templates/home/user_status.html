@@ -1,0 +1,128 @@
+
+
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<div style="margin:0 auto;text-align:left">
+      <!-- Div align in the middle -->
+
+	  <div class="col-sm-8">
+      <div style="margin-center:auto;margin-right:auto;text-align:left">
+        <p><h4> Hello {{ user.get_username }}, below you can see your proposals (if any) and profile details. </h4> </p>
+
+      	<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-th-list"></span>
+						Your proposals 
+					</h3>
+				</div>    
+
+
+        <div class="panel-body">
+          {% if request.user.profile.proposals.all|length == 0 %}
+              <p>You have not yet submitted any proposal. </p>
+            <p><a href="{% url 'proposal_upload' %}" class="btn btn-default">Submit a proposal</a></p>
+          {% else %}
+            {% for prop in request.user.profile.proposals.all %}
+                <li>Your proposal entitled <a href="{% url "proposal_edit" oid=prop.id %}">{{prop.proposal_title}}</a> </li>
+                
+            {% endfor %}
+          {% endif %}
+        </div>
+
+
+
+				</div>    
+
+
+			<!-- Form --> 
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-user"></span>
+						Profile information
+					</h3>
+				</div>   
+        
+        <div class="panel-body">
+          <ul>
+  <li>Username: <b>{{ user.get_username }}</b></li>
+  <li>Email: <b>{{ request.user.email }}</b></li>
+  
+    {% if request.user.first_name == None or not request.user.first_name.strip%}
+      <li>First Name: <span style="color: #ff0000">not provided</span></li>
+    {% else %}
+      <li>First Name: <b>{{ request.user.first_name }}</b></li>
+    {% endif %}
+    
+    {% if request.user.last_name == None or not request.user.last_name.strip %}
+      <li>Last Name: <span style="color: #ff0000">not provided</span></li>
+    {% else %}
+      <li>Last Name: <b>{{ request.user.last_name }}</b></li>
+    {% endif %}
+    
+    {% if request.user.profile.institution == None or not request.user.profile.institution.strip %}
+      <li>Institution: <span style="color: #ff0000">not provided</span></li>
+    {% else %}
+      <li>Institution: <b>{{ request.user.profile.institution }}</b></li>
+    {% endif %}
+        
+    {% if request.user.profile.location == None or not request.user.profile.location.strip%}
+      <li>Location: <span style="color: #ff0000">not provided</span></li>
+    {% else %}
+      <li>Location: <b>{{ request.user.profile.location }}</b></li>
+    {% endif %}
+
+    
+    {% if request.user.profile.role == None or not request.user.profile.role.strip%}
+      <li>Role: <span style="color: #ff0000">not provided</span></li>
+    {% else %}
+      <li>Role: <b>{{ request.user.profile.role }}</b></li>
+    {% endif %}
+  
+  </ul>
+  
+ <p>  If any of the information above is not correct please modify them, clicking this button        <a href="{% url 'update_profile' %}" class="btn btn-default">Edit Profile</a>
+</p>
+
+
+                    
+                    </div>
+            </div>  
+        </div>
+        </div>
+    </div>
+    </div>
+  
+{% endblock %}
+
+
+
+
+
+
+
+<!--
+minimal working example
+-->
+
+<!--
+-----------{ block content %}
+-->
+<!--
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+  
+  
+{ endblock %}
+-->
+
+
