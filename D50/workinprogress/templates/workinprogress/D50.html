@@ -20,7 +20,7 @@
 					<h1 class="panel-title"><span class="glyphicon glyphicon-info-sign"></span> What is NeXT-Grenoble?</h1>
 				</div>
 				<div class="list-group">
-					<a href="../neutron_x_ray_matter" class="list-group-item">Neutron and X-Ray imaging</a>
+					<a href="{% url 'neutron_x_ray_matter' %}" class="list-group-item">Neutron and X-Ray imaging</a>
 
 
 					<a  href="#" class="list-group-item"> Our instrument: D50</a>
@@ -35,21 +35,21 @@
           
           
           {% if not user.is_authenticated %} 
-              <a href="../../login/" class="list-group-item">Some of our results</a>
+              <a href="{% url 'login' %}" class="list-group-item">Some of our results</a>
           {% else %} 
-              <a href="../../workinprogress/404" class="list-group-item">Some of our results</a>
+              <a href="{% url 'WIP' %}" class="list-group-item">Some of our results</a>
           {% endif %} 
             
           {% if not user.is_authenticated %} 
-              <a href="../../login/" class="list-group-item">Forum</a>
+              <a href="{% url 'login' %}" class="list-group-item">Forum</a>
           {% else %} 
-              <a href="../../workinprogress/404" class="list-group-item">Forum</a>
+              <a href="{% url 'WIP' %}" class="list-group-item">Forum</a>
           {% endif %} 
            
           {% if not user.is_authenticated %} 
-              <a href="../../login/" class="list-group-item">Repository</a>
+              <a href="{% url 'login' %}" class="list-group-item">Repository</a>
           {% else %} 
-              <a href="../../workinprogress/404" class="list-group-item">Repository</a>
+              <a href="{% url 'WIP' %}" class="list-group-item">Repository</a>
           {% endif %} 
 
 				</div>
@@ -73,13 +73,13 @@
 -->
   <div id="Source"></div>
 
-    <h1>The Neutron source</h1>
-    The key elements in a neutron tomograph are the source of neutrons and the <a href="#MRDet">detector</a>, as well as the surounding <a href="#Environemnt">environment</a>
+    <h1>The neutron source</h1>
+    The key elements in a neutron tomograph are the source of neutrons and the <a href="#MRDet">detector</a>, as well as the surounding <a href="#Environment">environment</a>
     <ul>   
-        <li> The <a href="https://www.ill.eu/" >ILL</a> is the world's most powerful neutron source with its 1.5E15 neutrons per second per cm2 (n/s/cm2) </li>
+        <li> The <a href="https://www.ill.eu/" >ILL</a> is the world's most powerful neutron source with its 1.5E15 thermal neutrons neutrons per second per cm2 (n/s/cm2) </li>
         <li> Neutron Flux at the instrument: 5*10E7 n/s/cm2 (for a collimation L/D = 660)  <u>soon to be upgraded</u> </li>
-        <li> Collimation: L = 10m, Range of pinholes from 15 mm to 1.5 mm (<u>soon up to be increased up 30/40 mm</u>). For more information about the meaning collimation visit <a href="https://www.ill.eu/" >this</a>. </li>
-        <li> Mean neutron energy: 12.3 meV, 2.6 Å (cold neutrons) </li>
+        <li> Collimation: L = 10m, Range of pinholes from 15 mm to 1.5 mm (<u>soon up to be increased up 30/40 mm</u>). For more information about the meaning collimation visit <a href="{% url 'neutron_x_ray_matter' %}" >this</a>. </li>
+        <li> Mean neutron energy: 12.3 meV, 3 Å (cold neutrons) </li>
     </ul>
 <img class="img-responsive" src="{% static "home/images/source.jpg" %}" style="width: 50%; height: 50%" >   
 
@@ -194,7 +194,7 @@ The Tomographs are supported by a granite table, for maximal thermal and vibrati
       <li>Machining equipment (for non-active materials)</li>
       <li>Miscellaneous laboratory equipment (scales, oven..)</li>
       <li>Hydraulic equipment (e.g. a servocontrolled syringe pump going to 90MPa)</li>
-      <li>Several bespoke equipments have been developed by the users, some of which can be borrowed from them. For more information please contact us at <a href="mailto:contact@next-grenoble.fr?subject=mailinglist">contact@next-grenoble.fr</a></li>
+      <li>Several bespoke equipments have been developed by the users, some of which can be borrowed from them. For more information please contact us at <a href="mailto:contact@next-grenoble.fr">contact@next-grenoble.fr</a></li>
     </ul>
              <ul>
       </ul>

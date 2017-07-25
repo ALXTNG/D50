@@ -1,0 +1,80 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<div style="margin:0 auto;text-align:left">
+      <!-- Div align in the middle -->
+
+	  <div class="col-sm-8">
+      <div style="margin-center:auto;margin-right:auto;text-align:left">
+        <p><h4> Hello {{ user.get_username }}, as a committee member below you can all the submitted proposals organised by proposal cycle, related profile details. </h4> </p>
+
+      	<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-th-list"></span>
+						Profiles
+					</h3>
+				</div>    
+
+        <div class="panel-body">
+          {% if profiles.all|length == 0 %}
+              <p>There are no profiles yet. </p>
+          {% else %}
+            {% for prof in profiles %}
+                <li> <a href="{% url "profile_view" oid=prof.id %}">{{prof.profile.user}}</a> <i>i.e.</i> {{prof.first_name}} <b>{{prof.last_name}}</b> 
+                {% if prof.profile.institution == None or not prof.profile.institution.strip %}
+                {% else %}
+                from <i>{{prof.profile.institution}}</i> </li>
+                {% endif %}
+
+            {% endfor %}
+          {% endif %}
+        </div>
+
+
+
+				</div>    
+
+
+
+
+
+                    
+                    </div>
+            </div>  
+        </div>
+        </div>
+    </div>
+    </div>
+  
+{% endblock %}
+
+
+
+
+
+
+
+<!--
+minimal working example
+-->
+
+<!--
+-----------{ block content %}
+-->
+<!--
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+  
+  
+{ endblock %}
+-->
+
+
