@@ -1,17 +1,23 @@
 {% extends 'base_generic.html' %}
+{% load static %}
 
-{% block title %}Please login to access this part of the website{% endblock %}
+{% block title %}Edit your user profile information{% endblock %}
 
 {% block content %}
 
-	  <div class="col-sm-3">
-      <p>Please login to access the private parts of the website  </p>
+<div style="margin:0 auto;text-align:center">
+      <!-- Div align in the middle -->
+<p>Edit your user profile information </p>
+
+	  <div class="col-sm-8">
+      <div style="margin-left:auto;margin-right:auto;text-align:left">
+     
 			<!-- Form --> 
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<span class="glyphicon glyphicon-log-in"></span>
-						Log In
+						Sign up
 					</h3>
 				</div>   
         
@@ -21,33 +27,37 @@
 
 <!--
               this is actually redirectig to the login page (action="/login/") and (I think) posting the csrf_tokens below, the page also irectly submits the stuff and redirects you to the home page . it's all bases on the default view, I believe
--->
-              <form class="form-horizontal" name="LoginForm" action="/login/" method="post">
-                  {% csrf_token %}
-                    {% if next %}
-                    <input type="hidden" name="next" value="{{ next }}" />
+--> 
+              <form   method="post">
+                {% csrf_token %}
+                {% for field in new_profile_user.first_name %}
+                  <p>
+                    {{ field.label_tag }}<br>
+                    {{ field }}
+                    {% if field.help_text %}
+                      <small style="color: grey">{{ field.help_text }}</small>
                     {% endif %}
                     
-                    <div class="form-group">
-<!--
-                      type: [?], class = [the pretty box] , id+ name [withouth both does not remember + redirects to login] id [?? maybe allows the internet browser to remember what that is] placeholder= the text written when empty
--->
-                      <input type="text" class="form-control"  id="username" name="username"  placeholder="Username">
-                    </div>
                     
+                    {% for error in field.errors %}
+                      <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                  </p>
+                {% endfor %}
+                    
+
+<!--
                     <div class="form-group">
                       <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                     </div>
+-->
                     
                   <div class="controls">
-                    <p><button type="submit" class="btn btn-default">Login</button>
-                    <input type="checkbox" checked="checked"> Remember me</p>
-                    
-                    <p><a href="{% url 'password_reset' %}" class="btn btn-default">Lost your password?</a></p>
-                  </div>
-
+                    <button class="btn btn-default" type="submit">Sign up</button>                  
+                    </div>
               </form>
             </div>  
+        </div>
         </div>
     </div>
     </div>
@@ -79,3 +89,7 @@ minimal working example
   
 { endblock %}
 -->
+
+
+
+

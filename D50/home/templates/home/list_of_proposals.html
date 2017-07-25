@@ -1,0 +1,84 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<div style="margin:0 auto;text-align:left">
+      <!-- Div align in the middle -->
+
+	  <div class="col-sm-8">
+      <div style="margin-center:auto;margin-right:auto;text-align:left">
+        <p><h4> Hello {{ user.get_username }}, as a committee member below you can all the submitted proposals organised by proposal cycle, related profile details. </h4> </p>
+
+      	<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-th-list"></span>
+						Proposals
+					</h3>
+				</div>    
+
+        <div class="panel-body">
+          {% if proposals.all|length == 0 %}
+              <p>There are no submitted proposals yet for this cycle. </p>
+            <p><a href="{% url 'proposal_upload' %}" class="btn btn-default">Submit a proposal</a></p>
+          {% else %}
+            {% for prop in proposals %}
+                <li>Proposal ID: <a href="{% url "proposal_view" oid=prop.id %}">{{prop.proposal_ID}}</a> entitled "<i>{{prop.proposal_title}}</i>" from <a href="{% url "profile_view" oid=prop.profile_of_proposal.all.0.user.id %}">{{ prop.user_proposal }}</a> </li>
+<!--
+               prop.profile_of_proposal.all.0.user.id: 
+               prop= proposal
+               profile_of_proposal (reverse of many to many)
+               all.0 take all, then select the first one.
+               .user (we got to profile, now we want the user number)
+               .id its ID 
+-->
+            {% endfor %}
+          {% endif %}
+        </div>
+
+
+
+				</div>    
+
+
+
+
+
+                    
+                    </div>
+            </div>  
+        </div>
+        </div>
+    </div>
+    </div>
+  
+{% endblock %}
+
+
+
+
+
+
+
+<!--
+minimal working example
+-->
+
+<!--
+-----------{ block content %}
+-->
+<!--
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+  
+  
+{ endblock %}
+-->
+
+

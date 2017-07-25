@@ -1,0 +1,108 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}Please register to access some private parts of the website{% endblock %}
+
+{% block content %}
+
+<div style="margin:0 auto;text-align:center">
+      <!-- Div align in the middle -->
+
+	  <div class="col-sm-8">
+      <div style="margin-left:auto;margin-right:auto;text-align:left">
+        <p><a href="{% url 'user_status' %}" class="btn btn-default">Back to your Profile</a></p>
+
+			<!-- Form --> 
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-edit"></span>
+          To edit a proposal, reupload the files and/or edit title and comments					</h3>
+				</div>   
+        
+        <div class="panel-body">
+            <div id="submit">
+
+<!--
+              this is actually redirectig to the login page (action="/login/") and (I think) posting the csrf_tokens below, the page also irectly submits the stuff and redirects you to the home page . it's all bases on the default view, I believe
+-->
+ <form class="form-horizontal"method="post" enctype="multipart/form-data">{% csrf_token %}
+    <fieldset>
+        {% for field in form %}
+            {% if field.errors %}
+                <div class="control-group error">
+<!--
+                    <label class="control-label">{{ field.label }}</label> 
+-->
+                    <div class="controls">{{ field }}
+                        <span class="help-inline">
+                            {% for error in  field.errors %}{{ error }}{% endfor %}
+                        </span>
+                    </div>
+                </div>
+            {% else %}
+                <div class="control-group">
+                    <label class="control-label">{{ field.label }}</label> 
+<form class="form-horizontal">
+  <div class="control-group">
+                    <div class="controls">{{ field }}
+</div>
+
+<!--
+                    <input type="text" class="form-control"  id="username" name="username"  placeholder="Username">
+-->
+
+                        {% if field.help_text %}
+                            <p class="help-inline"><small>{{ field.help_text }}</small></p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </fieldset>
+    <div class="controls">
+        <button type="submit" class="btn btn-default" >Upload</button>
+    </div>
+</form>
+
+                
+                    </div>
+                    </div>
+                    </div>
+                     <p><a href="{% url 'home' %}" class="btn btn-default">Return to home</a></p>
+                    <p><a href="{% url 'user_status' %}" class="btn btn-default">Back to your Profile</a></p>
+
+
+
+              
+              </form>
+              
+
+
+            </div>  
+        </div>
+        </div>
+    </div>
+    </div>
+    </div>
+  
+{% endblock %}
+
+
+
+
+
+
+<!--
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+  </form>
+  <p>Please note that this proposal will be recorded with <b></>"{{ user.get_username }}" as corresponding author, and the email "{{ request.user.email }}" will be used for all correspondance. If this email is not longer valid, make sure to <a href="{% url 'update_profile' %}">update your user profile</a> </p>
+
+  <p><a href="{% url 'home' %}">Return to home</a></p>
+-->
+
+
