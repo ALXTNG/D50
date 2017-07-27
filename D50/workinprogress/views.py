@@ -48,7 +48,7 @@ def proposalSubmission(request):
     
 def downloadForm(request):
     # Create the HttpResponse object with the appropriate headers.
-    pdf_file = FilesUploaded.objects.filter(title__icontains="form")
+    pdf_file = FilesUploaded.objects.filter(title__icontains="pdfform")
     response = HttpResponse(pdf_file, content_type='application/pdf')
     response['Content-Type'] = 'application/pdf'
     response['Content-Disposition'] = 'attachment; filename="NeXT_ProposalSubmissionForm.pdf"'
