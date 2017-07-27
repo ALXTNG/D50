@@ -42,7 +42,7 @@ def proposalDetails(request):
 def proposalSubmission(request):
   
     file_list = FilesUploaded.objects.all()
-    pdf_file = FilesUploaded.objects.filter(title__icontains="form")
+    pdf_file = FilesUploaded.objects.filter(title__icontains="pdfform")
     context = {'file_list': file_list, 'pdf_file' : pdf_file }
     return render(request, 'workinprogress/proposalSubmission.html', context)
     
