@@ -14,7 +14,7 @@
 <div style="margin:0 auto;text-align:center">
       <!-- Div align in the middle -->
 
-	  <div class="col-sm-8">
+	  <div class="col-sm-10">
       <div style="margin-left:auto;margin-right:auto;text-align:left">
 
 			<!-- Form --> 
@@ -35,28 +35,52 @@
 -->
               <form   method="post">
                 {% csrf_token %}
+                
                 {% for field in form %}
-                  <p>
-                    {{ field.label_tag }}<br>
-                    {{ field }}
-                    {% if field.help_text %}
-                      <small style="color: grey">{{ field.help_text }}</small>
+                  {%if field.name != 'committe_member_verification' and  field.name != 'collaborator_verification' and field.name != 'notes_status'%}
+                    <p>
+                      {{ field.label_tag }}<br>
+                      {{ field }}
+                      {% if field.help_text %}
+                        <small style="color: grey">{{ field.help_text }}</small>
+                      {% endif %}
                     {% endif %}
-                    
-                    
-                    {% for error in field.errors %}
-                      <p style="color: red">{{ error }}</p>
-                    {% endfor %}
-                  </p>
+                      
+                      
+                      {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                      {% endfor %}
+                    </p>
                 {% endfor %}
-                    
+                
+                  <hr>
+                  <h4>Special rights</h4>
 
+                  {% for field in form %}
+                  {%if field.name == 'committe_member_verification' or  field.name == 'collaborator_verification' or field.name == 'notes_status'%}
+                    <p>
+                      {{ field.label_tag }}<br>
+                      {{ field }}
+                      {% if field.help_text %}
+                        <small style="color: grey">{{ field.help_text }}</small>
+                      {% endif %}
+                    {% endif %}
+                      
+                      
+                      {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                      {% endfor %}
+                    </p>
+                {% endfor %}
+                
+                
+                  
 <!--
                     <div class="form-group">
                       <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                     </div>
 -->
-                    
+                    <hr>
                   <div class="controls">
                     <p><button class="btn btn-default" type="submit">Sign up</button>  </p>                
                     </div>

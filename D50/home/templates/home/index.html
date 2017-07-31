@@ -375,6 +375,49 @@
       
       
         {% endif%}
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    {% if perms.can_see_all_users %}
+        
+        <div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-list"></span>
+						View proposals
+					</h3>
+				</div>   
+        <h6>Hello {{ request.user }}, as a committe member you can see all proposals submitted online as well as the corresponding profiles
+         </h6>    
+            
+              <div class="panel-body">
+                  {% if perms.can_see_all_proposals %}
+                    <p><a href="{% url 'list_proposals' %}" class="btn btn-default">List of Proposals</a></p>
+                  {% endif %}
+                  {% if perms.can_see_all_users %}
+                    <p><a href="{% url 'list_profiles' %}" class="btn btn-default">List of Profiles</a></p>
+                  {% endif %}
+
+              </div>   
+              </div>   
+            
+      {% endif %}      
+        
+        
+        
+        
+        
 			<!-- Progress Bars -->
 			<div class="panel panel-default">
 				<div class="panel-heading">

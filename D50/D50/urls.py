@@ -43,6 +43,12 @@ urlpatterns = [
     url(r'^account_activation_sent/$', core_views.account_activation_sent, name='account_activation_sent'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         core_views.activate, name='activate'),
+    
+    #activate committe or collaborator status.     
+    url(r'^activate_collaborator/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        home.views.activate_collaborator, name='activate_collaborator'),
+    url(r'^activate_committee/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        home.views.activate_committee, name='activate_committee'),
         
     url(r'^proposalsubmission/', home.views.proposalSubmission, name='proposalSubmission'),
 
