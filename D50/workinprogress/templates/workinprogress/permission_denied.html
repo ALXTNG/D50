@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% extends "base_generic.html" %}
+{% load static %}
+
+
+      <!-- thisis the bit that extends the base_generic html thing -->
+
+{% block content %}
+
+<div style="margin:0 auto;text-align:center">
+      <!-- Div align in the middle -->
+      <div style="margin-left:auto;margin-right:auto;text-align:center">
+       
+      <p><h3>You currently don't have access rights to this part of the website. </h3></p>
+      <p><h4>Please contact <a href="mailto:contact@next-grenoble.fr">contact@next-grenoble.fr</a> for any inquiry.</h4> </p>
+      <p>We apologise for any inconvenience</p>
+
+      <img src="{% static "workinprogress/images/permission_denied.jpg" %}" alt="First Image"/ style="width:180px"> 
+  
+      </div>  
+</div>  
+   
+{% endblock %}   
+
+

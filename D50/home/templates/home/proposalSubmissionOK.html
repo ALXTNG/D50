@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% extends "base_generic.html" %}
+
+{% load static %}
+
+
+      <!-- thisis the bit that extends the base_generic html thing -->
+
+{% block content %}
+
+
+
+      <!-- Div align in the middle -->
+      <div style="margin-left:1cm;margin-right:auto;text-align:left">
+       <h3>The proposal submission round is now open and will close on {{ latest_proposal.end_date|date:"M d, Y" }}.</h3>
+
+        <div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+            <span class="glyphicon glyphicon glyphicon-upload"></span>
+						Proposal Submission
+					</h3>
+        </div>
+        
+        <h4>To submit the proposal, you have two choices:</h4>
+        
+        <ol>
+          <li> Send an email to <a href="mailto:contact@next-grenoble.fr?subject=Proposal submission">contact@next-grenoble.fr</a>, following the guidelines provided <a href="{% url 'proposalDetails' %}" ">here</a>. All subsequent communications will be via email. </li>
+          <li>  {% if user.is_authenticated %} <!--If user is logged in, propose him directly the option to upload  -->
+                    <p>Otherwise, you can submit your proposals online here:</p>
+                    
+                    <div class="controls">
+                        <p><a href="{% url 'proposal_upload' %}" class="btn btn-default">Upload a proposal</a></p>
+                    <div>
+                      
+                    <p>Already submitted a proposal? While the proposal round is open (until the {{ latest_proposal.end_date|date:"M d, Y"  }}) you can edit it here, and afterwards you will also be able to follow the state of your proposals (responses from the Committees, days assigned etc...)</p>
+                    <p><a href="{% url 'user_status' %}" class="btn btn-default">My NeXT profile</a></p>
+                    
+                {% else %} <!--Allow him to signup or register  -->
+                    Otherwise you can log in or sign up and submit your proposal online. This option will allow for updating your proposal until the last date of this round ({{ latest_proposal.end_date|date:"M d, Y"  }}) as well as for following the state of your proposal directly online. 
+                    
+                    <p>Do you have a NeXT account? </p>
+                      <div class="controls">
+                      <p><a href="{% url 'login' %}" class="btn btn-default">Log in</a></p>
+                      
+                      <p>otherwise create one here:</p>
+                      
+                      </div>
+                    <div class="controls">
+                        <p><a href="{% url 'signup' %}" class="btn btn-default">Sign up</a></p>
+                    <div>
+                      
+                      <p>After which, come back here to be able to submit a proposal</p>
+                {% endif %}
+                
+                
+          
+        </ol>
+        <hr> 
+        {% if latest_proposal.has_committee_met != 'unknown' %}
+          <h4> <p>The meeting of the Scientific and Steering Committees is currently scheduled for {{ latest_proposal.committe_meeting|date:"M d, Y" }}.  </p> </h4>
+        {% else %}
+          <h4> <p>The date of the meeting of the Scientific and Steering Committees is currently unknown. Any new information will be reported here.</p> </h4>
+        {% endif %}
+        
+        <hr>
+      <div style="margin-left:auto;margin-right:auto;text-align:center">
+
+        <p>For any information, please contact <a href="mailto:contact@next-grenoble.fr">contact@next-grenoble.fr</a> </p>
+  
+      </div>  
+</div>  
+   
+{% endblock %}       
+
+
