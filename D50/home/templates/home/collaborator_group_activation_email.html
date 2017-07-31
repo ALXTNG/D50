@@ -1,0 +1,43 @@
+{% autoescape off %}
+Dear NeXT Webmaster, 
+
+the user {{ user.username }}, which has provided the following personal details: 
+    {% if user.first_name == None or not user.first_name.strip%}
+      = First Name: unknown
+    {% else %}
+      = First Name: {{ user.first_name }}
+    {% endif %}         
+      = Last Name: {{user.last_name}}
+      
+      = Email: {{ user.email }}                
+    {% if user.profile.institution == None or not user.profile.institution.strip %}
+      = Institution: unknown
+    {% else %}
+      = Institution: {{ user.profile.institution }}
+    {% endif %}{% if user.profile.role == None or not user.profile.role.strip %}
+      = Role: unknown
+    {% else %}
+      = Role: {{ user.profile.role }}
+    {% endif %}{% if user.profile.location == None or not user.profile.location.strip %}
+      = Location: unknown
+    {% else %}
+      = Location: {{ user.profile.location }}
+    {% endif %}
+          
+has requested to belong to the 'Committee Member group', giving him access to private parts of the website such as the list of users and proposals..
+
+    {% if user.profile.notes_status == None or not user.profile.notes_status.strip %}
+        The user has provided no explanation on why he desires this permission.
+    {% else %}
+    The user provided the following comment about why he would like this permission:
+    "{{ user.profile.notes_status }}"
+    {% endif %}
+
+To activate his account click on the link below (you only need to do this once). To reject his request, simply ignore this email. 
+
+https://{{ domain }}{% url 'activate_collaborator' uidb64=uid token=token %}
+
+
+Kind Regards 
+Alessandro and the NeXT team
+{% endautoescape %}

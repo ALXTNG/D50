@@ -5,6 +5,10 @@ from django.contrib.auth.decorators import login_required
 from home.models import Document
 from home.models import Proposal
 
+#this one is to format the help text
+from django.utils.safestring import mark_safe
+
+
 
 from .models import  Profile
 
@@ -16,10 +20,22 @@ class SignUpForm(UserCreationForm):
     
     location = forms.CharField(max_length=30, required=False, help_text='Optional.')
     institution = forms.CharField(max_length=500, required=False, help_text='Optional.')
-    role = forms.CharField(max_length=500, required=False, help_text='Optional.')
+    role = forms.CharField(max_length=500, required=False, help_text='Optional.')    
+    
+    
+    committe_member_verification = forms.BooleanField( label='Committee', help_text=mark_safe('Tick this box if you are a NeXT Committe Member.<br /> This will grant you access to the submitted proposals and internal documentation. <br /> <i><small>Please note that your request will remain pending until it receives approval from the webmaster. </small></i> '),required=False)
+    collaborator_verification = forms.BooleanField( label='Collaborator', help_text=mark_safe('Tick this box if you are a NeXT Collaborator. <br /> This will grant you access to internal documentation. <br /> <i><small>Please note that your request will remain pending until it receives approval from the webmaster. </small></i> '), required=False)
+    
+    notes_status = forms.CharField(max_length=500, required=False, help_text='Please add here any explanation you might want to provide about the status of Collaborator or Committee Member')
+
+    
+    
+    
 
     class Meta:
         model = User
+        #~ exclude = ('committe_member_verification', 'collaborator_verification','notes_status')
+
         fields = ('username', 'last_name', 'first_name', 'institution','location', 'role','email', 'password1', 'password2', )
         #~ fields = ('username', 'email', 'password1', 'password2', )
 

@@ -184,10 +184,14 @@ class Proposal(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
     email_confirmed = models.BooleanField(default=False)
+    
+    collaborator_verification = models.NullBooleanField(default=False, null=True)
+    committe_member_verification = models.NullBooleanField(default=False, null=True)
+    notes_status = models.TextField(max_length=500, blank=True, null=True)
 
-    location = models.CharField(max_length=30, blank=True)
-    institution = models.TextField(max_length=500, blank=True)
-    role = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True, null=True)
+    institution = models.TextField(max_length=500, blank=True, null=True)
+    role = models.TextField(max_length=500, blank=True, null=True)
     proposals = models.ManyToManyField(Proposal, related_name='profile_of_proposal', help_text='this is for the proposals', blank=True)
 
     def __str__(self):  # __unicode__ for Python 2
@@ -207,12 +211,8 @@ class Profile(models.Model):
 
     
     
-    
-    
-    
-    
 
-# the @ receiver decorator listens to special signals of python andspecifically this one is setup to activate when post_save occurrs and more specifically when the sender is teh User function.
+# the @ receiver decorator listens to special signals of python and specifically this one is setup to activate when post_save occurrs and more specifically when the sender is the User function.
 #https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html#onetoone
 # when that happens, it creates (or modifies) the profile.
         
@@ -227,7 +227,7 @@ class Profile(models.Model):
     #~ instance.profile.save()      
     
 
-
+# this one is to save the profile when you save the user 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:

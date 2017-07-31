@@ -8,7 +8,8 @@ from django.shortcuts import render_to_response
 from django.http import *
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
- 
+
+from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 
 from django.contrib import messages
@@ -26,6 +27,8 @@ from django.utils.encoding import force_text
 from django.template.loader import render_to_string
 from home.forms import SignUpForm
 from home.tokens import account_activation_token
+from home.tokens import committe_activation_token
+from home.tokens import collaborator_activation_token
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage # this one is the extended version (e.g. attachements)
 
@@ -80,6 +83,9 @@ def signup(request):
             user.profile.location = form.cleaned_data.get('location')
             user.profile.institution = form.cleaned_data.get('institution')
             user.profile.role = form.cleaned_data.get('role')
+            user.profile.collaborator_verification = form.cleaned_data.get('collaborator_verification')
+            user.profile.committe_member_verification = form.cleaned_data.get('committe_member_verification')
+            user.profile.notes_status = form.cleaned_data.get('notes_status')
             user.save()           
 
             # below is the email activation bit
@@ -92,7 +98,37 @@ def signup(request):
                 'token': account_activation_token.make_token(user),
             })
             #~ user.email_user(subject, message)
-            send_mail(subject, message, 'no-reply-NeXT@next-grenoble.fr', [user.email])
+            send_mail(subject, message, 'no-reply@next-grenoble.fr', [user.email])
+            
+            
+            
+            
+            # if he requested the collaborator status:
+            if user.profile.collaborator_verification : 
+                subject_collaborator = 'Allow a user to have "collaborator" status'
+                message_collaborator = render_to_string('home/collaborator_group_activation_email.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': collaborator_activation_token.make_token(user),
+                })
+                #~ user.email_user(subject, message)
+                send_mail(subject_collaborator, message_collaborator, 'user-activation@next-grenoble.fr', ['contact@next-grenoble.fr'] )
+                
+            if user.profile.committe_member_verification :
+                subject_committee = 'Allow a user to have "committe member" status'
+                message_committee = render_to_string('home/committee_group_activation_email.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': committe_activation_token.make_token(user),
+                })
+                #~ user.email_user(subject, message)
+                send_mail(subject_committee, message_committee, 'user-activation@next-grenoble.fr', ['contact@next-grenoble.fr'] )
+                
+                
+                
+                
             return redirect('account_activation_sent')
                        
             #old version without email activation. Upside: directly logs you in          
@@ -162,8 +198,14 @@ def activate(request, uidb64, token):
         user = None
 
     if user is not None and account_activation_token.check_token(user, token):
+        # activating the user.
         user.is_active = True
+        # confirming email
         user.profile.email_confirmed = True
+        # assigning it to basic user group.
+        g = Group.objects.get(name='Users_proposers_basic') 
+        g.user_set.add(user)
+        # saving, logging him in.
         user.save()
         login(request, user)
         return redirect('home')
@@ -415,6 +457,44 @@ def proposal_form_upload(request):
 @login_required    
 def proposal_succesfully_uploaded(request):
   return render(request, 'home/proposal_succesfully_uploaded.html')
+
+# this one activates the collaborator status. If everything checks out he will be granted access to the group. 
+def activate_collaborator(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and collaborator_activation_token.check_token(user, token):
+      
+        g = Group.objects.get(name='Collaborators') 
+        g.user_set.add(user)
+        user.save()
+        return render(request, 'registration/group_activated.html')
+    else:
+        return render(request, 'account_activation_invalid.html')
+
+# this one activates the committee member status. If everything checks out he will be granted access to the group. 
+def activate_committee(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and committe_activation_token.check_token(user, token):
+      
+        g = Group.objects.get(name='commitee_member') 
+        g.user_set.add(user)
+        user.save()
+        return render(request, 'registration/group_activated.html')
+    else:
+        return render(request, 'account_activation_invalid.html')
+        
+        
+        
+
   
 #~ def simple_upload(request):
     #~ if request.method == 'POST' and request.FILES['myfile']:
