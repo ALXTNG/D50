@@ -33,6 +33,8 @@ from django.core.mail import EmailMessage # this one is the extended version (e.
 
 from .models import  Post
 from .models import  Proposal
+from .models import  Proposal_round
+from workinprogress.models import  FilesUploaded
 from .models import  Profile
 from django.contrib.auth.models import User
 
@@ -54,13 +56,12 @@ def logout_page(request):
     logout(request)
     return HttpResponseRedirect('/')
     
-    
 def index(request):
     post_list = Post.objects.order_by('-pub_date')[:]
-    context = {'post_list': post_list}
+    proposal_round = Proposal_round.objects.order_by('-proposal_round').reverse()[0]#FIXME to latest round
+    context = {'post_list': post_list, 'proposal_round':proposal_round }
     return render(request, 'home/index.html', context)
     
- 
 def signup(request):
 
     if request.method == 'POST':
@@ -105,44 +106,6 @@ def signup(request):
         form = SignUpForm()
         #~ form = UserCreationForm()
     return render(request, 'home/signup.html', {'form': form})
-
-#def signup(request):
-#    if request.method == 'POST':
-#        form = SignUpForm(request.POST)
-#        if form.is_valid():
-#            user = form.save()
-#            user.refresh_from_db()  # load the profile instance created by the signal
-#            user.profile.location = form.cleaned_data.get('location')
-#            user.profile.institution = form.cleaned_data.get('institution')
-#            user.profile.role = form.cleaned_data.get('role')
-#            user.save()
-#            raw_password = form.cleaned_data.get('password1')
-#            user = authenticate(username=user.username, password=raw_password)
-#            login(request, user)
-#            
-#            return redirect('home')
-#    else:
-#        form = SignUpForm()
-#    return render(request, 'home/signup.html', {'form': form})
-#    
-#    
-
-#~ def view_profile(request):
-    #~ profile = request.user.get_profile()    
-
-#~ def edit_profile(request):
-    #~ template_var = {}
-    #~ if '_auth_user_id' in request.session:
-        #~ userId = request.session['_auth_user_id']
-        #~ new_profile_user = Profile.objects.get(user_id=userId)
-        #~ userDetails = User.objects.get(pk=userId)
-        #~ if request.method == 'POST':
-            #~ userDetails.first_name = request.POST['first_name']
-            #~ userDetails.email = request.POST['email']
-            #~ userDetails.save()
-    #~ template_var['new_profile_user']=new_profile_user
-    #~ return render_to_response('home/edit_user.html',template_var,)
-    
     
 #the stuff below is for later updates
 @login_required
@@ -169,12 +132,10 @@ def update_profile(request):
         'profile_form': profile_form
     })
     
-    
 @login_required
 def user_status(request):
+    
     return render(request, 'home/user_status.html')
-        
-
         
 @login_required
 def change_password(request):
@@ -212,17 +173,7 @@ def activate(request, uidb64, token):
 def account_activation_sent(request):
     return render(request, 'home/account_activation_sent.html')
 
-#~ def simple_upload(request):
-    #~ if request.method == 'POST' and request.FILES['myfile']:
-        #~ myfile = request.FILES['myfile']
-        #~ fs = FileSystemStorage()
-        #~ filename = fs.save(myfile.name, myfile)
-        #~ uploaded_file_url = fs.url(filename)
-        #~ return render(request, 'home/simple_upload.html', {
-            #~ 'uploaded_file_url': uploaded_file_url
-        #~ })
-    #~ return render(request, 'home/simple_upload.html')
-    
+@login_required    
 def model_form_upload(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
@@ -241,107 +192,151 @@ def model_form_upload(request):
 @login_required    
 @transaction.atomic    
 def proposal_edit(request, oid):
-    proposal_id_requested = Proposal.objects.get(id=oid)
-
-    if request.method == 'POST':
-        form = ProposalForm(request.POST, request.FILES, instance=proposal_id_requested)
-        if form.is_valid():
-            record = form.save(commit=False)
-            form.save()
-            
-            #below is the email sending bit 
-            user_loggedin = request.user.get_username()
-            first_name = request.user.first_name
-            last_name = request.user.last_name
-            email_user_logged_in = request.user.email
-            comments = form.cleaned_data['comments']
-            if len(comments)>0: comments_exist=True
-            else: comments_exist=False
-            #~ rationale = form.cleaned_data['proposal_rationale']
-            #~ technical_support = form.cleaned_data['proposal_technical_support']
-            
-            #~ technical_support1 = request.FILES['proposal_technical_support']
-            #~ rationale1 = request.FILES['proposal_rationale']
-            
-            title = form.cleaned_data['proposal_title']
-            #~ text 
-            subject = 'Successful proposal modification at NeXT from %s'%user_loggedin
-            
-            current_site = get_current_site(request)
-
-            message = render_to_string('home/edited_proposal_email.html', {
-                'user': user_loggedin,
-                'first_name': first_name,
-                'last_name': last_name,
-                'title':title,
-                'comments':comments,
-                'comments_exist':comments_exist,
-                'domain': current_site.domain,
-
-            })
-            #~ user.email_user(subject, message)
-            
-            finalemail = EmailMessage(
-            subject,
-            message,
-            'proposal-submitted-noreply@next-grenoble.fr',
-            [email_user_logged_in],
-            ['contact@next-grenoble.fr'],
-            reply_to=['contact@next-grenoble.fr'],
-)
-
-            #~ message.attach('proposal_rationale.pdf', rationale , 'image/png')
-            #~ file_adress  =current_site.domain+record.proposal_rationale.url
-            finalemail.attach_file(record.proposal_rationale.path)
-            finalemail.attach_file(record.proposal_technical_support.path)
-            #~ finalemail.attach(rationale.name, rationale.read(), rationale.content_type)
-            #~ finalemail.attach(rationale.name, response, rationale.content_type)
-            #~ finalemail.attach_file(rationale1)
-            #~ finalemail.attach_file(technical_support1)
-            finalemail.send()
-            #~ send_mail(subject, message, 'proposal-submitted-noreply@next-grenoble.fr', [email_user_logged_in,'contact@next-grenoble.fr'])
-            #~ request.user.profile.proposals.add(record)
-            #~ form.save()
-            return redirect('proposal_succesfully_uploaded')
-            
-            
-            
-            return redirect('user_status')
-        else:
-          messages.error(request, ('Please correct the error below.'))    
-    else:
-        form = ProposalForm(instance=proposal_id_requested)
-    return render(request, 'home/proposal_form_edit.html', {
-        'form': form
-    })
+  
+    latest_proposal = Proposal_round.objects.order_by('-proposal_round').reverse()[0]
+    if latest_proposal.is_active() :
+        proposal_id_requested = Proposal.objects.get(id=oid)
+    
+        if  request.user.is_superuser or \
+            any(request.user.id  == proposal_id_requested.profile_of_proposal.all()[0].user.id for cycle in range(len(proposal_id_requested.profile_of_proposal.all()))):
+            # this one checks if the user logged in is any of the ones that are in teh list of proposers
+    
+    
+    
+    
+          if request.method == 'POST':
+              form = ProposalForm(request.POST, request.FILES, instance=proposal_id_requested)
+              if form.is_valid():
+                  record = form.save(commit=False)
+                  form.save()
+                  
+                  #below is the email sending bit 
+                  user_loggedin = request.user.get_username()
+                  first_name = request.user.first_name
+                  last_name = request.user.last_name
+                  email_user_logged_in = request.user.email
+                  comments = form.cleaned_data['comments']
+                  if len(comments)>0: comments_exist=True
+                  else: comments_exist=False
+                  #~ rationale = form.cleaned_data['proposal_rationale']
+                  #~ technical_support = form.cleaned_data['proposal_technical_support']
+                  
+                  #~ technical_support1 = request.FILES['proposal_technical_support']
+                  #~ rationale1 = request.FILES['proposal_rationale']
+                  
+                  title = form.cleaned_data['proposal_title']
+                  #~ text 
+                  subject = 'Successful proposal modification at NeXT from %s'%user_loggedin
+                  
+                  current_site = get_current_site(request)
+      
+                  message = render_to_string('home/edited_proposal_email.html', {
+                      'user': user_loggedin,
+                      'first_name': first_name,
+                      'last_name': last_name,
+                      'title':title,
+                      'comments':comments,
+                      'comments_exist':comments_exist,
+                      'domain': current_site.domain,
+      
+                  })
+                  #~ user.email_user(subject, message)
+                  
+                  finalemail = EmailMessage(
+                  subject,
+                  message,
+                  'proposal-submitted-noreply@next-grenoble.fr',
+                  [email_user_logged_in],
+                  ['contact@next-grenoble.fr'],
+                  reply_to=['contact@next-grenoble.fr'],
+                  )
+      
+                  #~ message.attach('proposal_rationale.pdf', rationale , 'image/png')
+                  #~ file_adress  =current_site.domain+record.proposal_rationale.url
+                  finalemail.attach_file(record.proposal_rationale.path)
+                  finalemail.attach_file(record.proposal_technical_support.path)
+                  #~ finalemail.attach(rationale.name, rationale.read(), rationale.content_type)
+                  #~ finalemail.attach(rationale.name, response, rationale.content_type)
+                  #~ finalemail.attach_file(rationale1)
+                  #~ finalemail.attach_file(technical_support1)
+                  finalemail.send()
+                  #~ send_mail(subject, message, 'proposal-submitted-noreply@next-grenoble.fr', [email_user_logged_in,'contact@next-grenoble.fr'])
+                  #~ request.user.profile.proposals.add(record)
+                  #~ form.save()
+                  return redirect('proposal_succesfully_uploaded')
+                  
+                  
+                  
+                  return redirect('user_status')
+              else:
+                messages.error(request, ('Please correct the error below.'))    
+          else:
+              form = ProposalForm(instance=proposal_id_requested)
+          return render(request, 'home/proposal_form_edit.html', {
+              'form': form
+          })
+          
+        else: 
+          return render(request, 'workinprogress/permission_denied.html')
+    else: 
+        return proposal_view(request, oid)
 
 @login_required
 def list_proposals(request):
     proposal_list = Proposal.objects.all()
     context = {'proposals':proposal_list}
-    return render(request, 'home/list_of_proposals.html', context)
-    
+    if request.user.has_perm('can_see_all_proposals') or request.user.is_superuser:
+      return render(request, 'home/list_of_proposals.html', context)
+    else: 
+      return render(request, 'workinprogress/permission_denied.html', context)
     
 @login_required    
 def proposal_view(request, oid):
     proposal_id_requested = Proposal.objects.get(id=oid)
-    return render(request, 'home/proposal_view.html', {
-        'proposal_id_requested': proposal_id_requested
-    })
     
+    if request.user.has_perm('can_see_all_proposals') or request.user.is_superuser or  \
+        any(request.user.id  == proposal_id_requested.profile_of_proposal.all()[0].user.id for cycle in range(len(proposal_id_requested.profile_of_proposal.all()))):
+     
+      return render(request, 'home/proposal_view.html', {
+        'proposal_id_requested': proposal_id_requested
+        })    
+    else: 
+      return render(request, 'workinprogress/permission_denied.html')
+        
 @login_required    
 def profile_view(request, oid):
     profile_id_requested = User.objects.get(id=oid)
-    return render(request, 'home/profile_view.html', {
-        'profile_id_requested': profile_id_requested
-    })
+    if request.user.has_perm('can_see_all_users') or request.user.is_superuser or request.user.id == int(oid) :
+      return render(request, 'home/profile_view.html', {
+          'profile_id_requested': profile_id_requested
+      })
+    else: 
+      return render(request, 'workinprogress/permission_denied.html')
+      
+      
+
     
 @login_required
 def list_profiles(request):
     profile_list = User.objects.all()
     context = {'profiles':profile_list}
-    return render(request, 'home/list_of_profiles.html', context)
     
+    if request.user.has_perm('can_see_all_users') or request.user.is_superuser:
+      return render(request, 'home/list_of_profiles.html', context)
+    else: 
+      return render(request, 'workinprogress/permission_denied.html')
+
+    
+def proposalSubmission(request):
+    latest_proposal = Proposal_round.objects.order_by('-proposal_round').reverse()[0]
+    context = {'latest_proposal':latest_proposal}
+    if latest_proposal.is_active() :
+          return render(request, 'home/proposalSubmissionOK.html', context)
+    else: 
+          return render(request, 'home/proposalSubmission_offseason.html', context)
+    
+    
+  
         
 @login_required    
 def proposal_form_upload(request):
@@ -420,3 +415,52 @@ def proposal_form_upload(request):
 @login_required    
 def proposal_succesfully_uploaded(request):
   return render(request, 'home/proposal_succesfully_uploaded.html')
+  
+#~ def simple_upload(request):
+    #~ if request.method == 'POST' and request.FILES['myfile']:
+        #~ myfile = request.FILES['myfile']
+        #~ fs = FileSystemStorage()
+        #~ filename = fs.save(myfile.name, myfile)
+        #~ uploaded_file_url = fs.url(filename)
+        #~ return render(request, 'home/simple_upload.html', {
+            #~ 'uploaded_file_url': uploaded_file_url
+        #~ })
+    #~ return render(request, 'home/simple_upload.html')  
+  
+#def signup(request):
+#    if request.method == 'POST':
+#        form = SignUpForm(request.POST)
+#        if form.is_valid():
+#            user = form.save()
+#            user.refresh_from_db()  # load the profile instance created by the signal
+#            user.profile.location = form.cleaned_data.get('location')
+#            user.profile.institution = form.cleaned_data.get('institution')
+#            user.profile.role = form.cleaned_data.get('role')
+#            user.save()
+#            raw_password = form.cleaned_data.get('password1')
+#            user = authenticate(username=user.username, password=raw_password)
+#            login(request, user)
+#            
+#            return redirect('home')
+#    else:
+#        form = SignUpForm()
+#    return render(request, 'home/signup.html', {'form': form})
+#    
+#    
+
+#~ def view_profile(request):
+    #~ profile = request.user.get_profile()    
+
+#~ def edit_profile(request):
+    #~ template_var = {}
+    #~ if '_auth_user_id' in request.session:
+        #~ userId = request.session['_auth_user_id']
+        #~ new_profile_user = Profile.objects.get(user_id=userId)
+        #~ userDetails = User.objects.get(pk=userId)
+        #~ if request.method == 'POST':
+            #~ userDetails.first_name = request.POST['first_name']
+            #~ userDetails.email = request.POST['email']
+            #~ userDetails.save()
+    #~ template_var['new_profile_user']=new_profile_user
+    #~ return render_to_response('home/edit_user.html',template_var,)
+    

@@ -9,6 +9,12 @@ def forumtest(user):
     
 def WIP(request):
     return render(request, 'workinprogress/WIP.html')
+    
+def access_forbidden(request):
+    return render(request, 'workinprogress/permission_denied.html')
+    
+def access_forbidden_forum(request):
+    return render(request, 'workinprogress/forum_beta.html')
 
 def aboutNEXT(request):
     return render(request, 'workinprogress/aboutNEXT.html')
@@ -38,13 +44,6 @@ def proposalDetails(request):
     pdf_file = FilesUploaded.objects.filter(title__icontains="form")
     context = {'file_list': file_list, 'pdf_file' : pdf_file }
     return render(request, 'workinprogress/proposalDetails.html', context)
-    
-def proposalSubmission(request):
-  
-    file_list = FilesUploaded.objects.all()
-    pdf_file = FilesUploaded.objects.filter(title__icontains="pdfform")
-    context = {'file_list': file_list, 'pdf_file' : pdf_file }
-    return render(request, 'workinprogress/proposalSubmission.html', context)
     
 def downloadForm(request):
     # Create the HttpResponse object with the appropriate headers.

@@ -9,9 +9,10 @@
 
 	  <div class="col-sm-8">
       <div style="margin-center:auto;margin-right:auto;text-align:left">
+        {% if perms.home.can_see_all_proposals %}
         <p><h5> Hello {{ user.get_username }}, as a committee member, you can see below the details regarding the proposal:</p>
          <p>{{proposal_id_requested.proposal_ID}} from {{proposal_id_requested.profile_of_proposal.all.0.user.first_name}} {{proposal_id_requested.profile_of_proposal.all.0.user.last_name}}. </h5> </p>
-
+        {% endif %}
       	<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">
@@ -26,7 +27,18 @@
   
 
 
-    <p>This proposal, entitled <b>"{{proposal_id_requested.proposal_title}}"</b> was created by <a href="{% url "profile_view" oid=proposal_id_requested.profile_of_proposal.all.0.user.id %}">{{ proposal_id_requested.user_proposal }}</a> and was last edited on {{proposal_id_requested.datetime}}
+    <p>This proposal, entitled <b>"{{proposal_id_requested.proposal_title}}"</b> was created by 
+    
+    {% if perms.can_see_all_users %}
+    <a href="{% url "profile_view" oid=proposal_id_requested.profile_of_proposal.all.0.user.id %}">{{ proposal_id_requested.user_proposal }}</a> 
+     {% else %}
+      <a href="{% url 'user_status' %}" ">{{ proposal_id_requested.user_proposal }}</a>
+
+    {% endif %}
+
+    
+    
+    and was last edited on {{proposal_id_requested.datetime}}
     It belongs to the proposal round number {{proposal_id_requested.proposal_round}}
     </p>
 
@@ -59,7 +71,11 @@
   <div class="panel-body" style="min-height: 1; max-height: 10;">{{proposal_id_requested.response_steering_committee}}</div>
 </div>
         </div>
+        {% if perms.can_see_all_users %}
            <p><a href="{% url 'list_proposals' %}" class="btn btn-primary">Back to the list of Proposals</a></p>
+        {% else %}
+           <p><a href="{% url 'user_status' %}" class="btn btn-default">Back to your profile</a></p>
+        {% endif %}
          
          
                     </div>

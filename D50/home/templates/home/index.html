@@ -4,8 +4,8 @@
 	<head>
 		
 		<!-- Website Title & Description for Search Engine purposes -->
-		<title>NEXT-grenoble</title>
-		<meta name="NEXT Grenoble" content="NEutron and X-ray Imaging in Grenoble "/>
+		<title>NeXT-Grenoble</title>
+		<meta name="NeXT Grenoble" content="Neutron and X-ray Imaging in Grenoble "/>
 		
 		<!-- Mobile viewport optimized -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -92,19 +92,41 @@
           {% if not user.is_authenticated %} 
               <a href="{% url 'login' %}" class="list-group-item">Some of our results</a>
           {% else %} 
-              <a href="{% url 'WIP' %}"  class="list-group-item">Some of our results</a>
+            {% if perms.home.can_see_some_of_our_results or user.is_superuser %}
+                <a href="{% url 'WIP' %}" class="list-group-item">Some of our results</a>
+            {% else %}
+                 <a href="{% url 'access_forbidden' %}" class="list-group-item">Some of our results</a>
+            {% endif %}
           {% endif %} 
+          
+          
+          
+          
             
           {% if not user.is_authenticated %} 
               <a href="{% url 'login' %}"  class="list-group-item">Forum</a>
           {% else %} 
-              <a href="{% url 'WIP' %}" class="list-group-item">Forum</a>
+          
+            {% if perms.home.can_see_forum or user.is_superuser %}
+                <a href="{% url 'WIP' %}" class="list-group-item">Forum</a>
+            {% else %}
+                 <a href="{% url 'access_forbidden_forum' %}" class="list-group-item">Forum</a>
+            {% endif %}
+            
           {% endif %} 
+          
+          
           
           {% if not user.is_authenticated %} 
               <a href="{% url 'login' %}"  class="list-group-item">Repository</a>
-          {% else %} 
-              <a href="{% url 'WIP' %}" class="list-group-item">Repository</a>
+          {% else %}
+          
+            {% if perms.home.can_see_repository or user.is_superuser %}
+                <a href="{% url 'WIP' %}" class="list-group-item">Repository</a>
+            {% else %}
+                 <a href="{% url 'access_forbidden' %}" class="list-group-item">Repository</a>
+            {% endif %}
+          
           {% endif %} 
 
 
@@ -123,8 +145,14 @@
 					<p>We are open to external proposals. </p>
 					<p><a href="{% url 'contact' %}" class="btn btn-default">Contact us</a></p>
 					<p><a href="{% url 'proposalDetails' %}" class="btn btn-default">Proposal guidelines</a></p>
+          
+          
 					<p><a href="{% url 'proposalSubmission' %}" class="btn btn-default">Submit a proposal</a></p>
-					<p><a href="{% url 'proposalSubmission' %}" class="btn btn-default">Follow your proposals</a></p>
+          {% if not user.is_authenticated %} 
+              <a href="{% url 'login' %}"  class="btn btn-default">Follow your proposal</a>
+          {% else %} 
+					<p><a href="{% url 'user_status' %}" class="btn btn-default">Follow your proposals</a></p>
+          {% endif %}
 				</div>
 			</div>
 
@@ -308,25 +336,26 @@
                     <div class="form-group">
                       <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                     </div>
+                    </div>
+                    </div>
                     
                   <div class="controls">
                     <p><button type="submit" class="btn btn-default">Login</button>
                     <input type="checkbox" checked="checked"> Remember me</p>
                   </div>
                   
-                  <div class="controls">
-                    <p><a href="{% url 'signup' %}" class="btn btn-default">Sign up</a></p>
 
-                  </div>
-                  
-                  <div>
                     
                   <div class="controls">
-                   <p> <a href="{% url 'password_reset' %}" class="btn btn-default">Lost your password?</a></p>
-
+                    <p> <a href="{% url 'password_reset' %}" class="btn btn-default">Lost your password?</a></p>
+                  </div>
                   
-                  </div>
-                  </div>
+                  <hr>
+                  
+                  <div class="controls">
+                    <p><a href="{% url 'signup' %}" class="btn btn-default">Sign up</a></p>
+                  <div>
+                    
               </form>
             </div>  
         </div>
@@ -335,7 +364,7 @@
 
           
             {% else %} 
-						You are logged in
+						You are logged in as: "{{ request.user }}"
 					</h3>
             </div>
               <div class="panel-body">
