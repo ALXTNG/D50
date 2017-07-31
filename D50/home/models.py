@@ -87,8 +87,8 @@ class Post(models.Model):
 class Proposal_round(models.Model):
     proposal_round = models.IntegerField(default=0, null=False)
     
-    beginning_date =  models.DateTimeField( null=False, default = timezone.now)
-    end_date =  models.DateTimeField(null=False, default = timezone.now)
+    beginning_date =  models.DateTimeField( null=False)
+    end_date =  models.DateTimeField(null=False)
     
     committe_meeting =  models.DateField(null=True, blank = True)
     
