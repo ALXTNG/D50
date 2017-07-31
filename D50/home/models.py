@@ -85,9 +85,44 @@ class Post(models.Model):
         return reverse('mymodel_detail', args=(self.slug,))
 
 class Proposal_round(models.Model):
-    proposal_round = models.IntegerField(default=0, null=True)
+    proposal_round = models.IntegerField(default=0, null=False)
+    
+    beginning_date =  models.DateTimeField( null=False, default = timezone.now)
+    end_date =  models.DateTimeField(null=False, default = timezone.now)
+    
+    committe_meeting =  models.DateField(null=True, blank = True)
+    
+    expected_beginning_time_allocation =  models.DateField(null=True, default = timezone.now)
+    
+    available_days =  models.IntegerField(default=0, null=True)
     def __str__(self):  # __unicode__ for Python 2
       return str(self.proposal_round)
+      
+    def is_active(self):
+      if (timezone.now() >= self.beginning_date) and (timezone.now() <= self.end_date): return True
+      else: return False
+      
+    def has_passed(self):
+      if (timezone.now() >= self.end_date) : return True
+      else: return False
+      
+    def has_not_started(self):
+      if (timezone.now() <= self.beginning_date) : return True
+      else: return False
+      
+    def has_committee_met(self):      
+        if self.committe_meeting != None :
+            
+            if (timezone.now().date() <= self.committe_meeting) : 
+              meeting = 'future'
+              return meeting
+            else: 
+              meeting = 'past'
+              return meeting  
+        else :
+              meeting = 'unknown'
+              return meeting  
+                
 
 class Proposal(models.Model):
 
@@ -97,8 +132,10 @@ class Proposal(models.Model):
     comments =  models.CharField(max_length=1000, blank=True, help_text='add comments, if any')
     proposal_title = models.CharField(max_length=1000, blank=False, help_text='Please insert the title of the proposal')
     
-    response_scientific_committee =  models.TextField( blank=True, help_text='add text')
-    response_steering_committee = models.TextField( blank=True, help_text='add text')
+    response_scientific_committee =  models.TextField( blank=True, help_text='response of the Scientific Committee')
+    response_steering_committee = models.TextField( blank=True, help_text='response of the Scientific Committee')
+    
+    verdict = models.TextField( blank=True, help_text='verdict about the proposal')
     
     
     proposal_round= models.ForeignKey(Proposal_round, on_delete=models.SET_NULL, null=True)
@@ -158,11 +195,13 @@ class Profile(models.Model):
     class Meta:
         permissions = (
             ("can_see_forum", "Can see forum"),
-            ("cann_see_repository", "Can vote in elections"),
+            ("can_see_repository", "Can see the data repository"),
             ("can_see_some_of_our_results", "Can see some of our results"),
-            ("can_see_private_files", "Can see private_files"),
+            ("can_see_misc_private_files", "Can see private files"),
             ("can_see_all_proposals", "Can see all proposals"),
+            ("can_see_all_users", "Can see all users"),
             ("can_write_comments_on_proposals", "Can write comments on proposals"),
+            ("can_edit_proposals", "Can edit proposals"),
         )
         
 

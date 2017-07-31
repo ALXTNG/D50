@@ -9,8 +9,10 @@
 
 	  <div class="col-sm-8">
       <div style="margin-center:auto;margin-right:auto;text-align:left">
-        <p><h5> Hello {{ user.get_username }}, as a committee member, below you can see the user details of {{profile_id_requested.get_username}}. </h5> </p>
-  
+        {% if profile_id_requested.get_username == user.get_username %}
+        {% else %}
+          <p><h5> Hello {{ user.get_username }}, as a committee member, below you can see the user details of {{profile_id_requested.get_username}}. </h5> </p>
+        {% endif %}
       	<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">
@@ -70,8 +72,11 @@
   
   </div>
 </div>
-    
-                 <p><a href="{% url 'list_profiles' %}" class="btn btn-default">List of Profiles</a></p>
+        {% if perms.can_see_all_users %}
+           <p><a href="{% url 'list_profiles' %}" class="btn btn-primary">List of Profiles</a></p>
+        {% else %}
+           <p><a href="{% url 'user_status' %}" class="btn btn-default">Back to your profile</a></p>
+        {% endif %}
 
                     </div>
             </div>  
