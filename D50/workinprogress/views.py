@@ -42,7 +42,8 @@ def proposalDetails(request):
   
     file_list = FilesUploaded.objects.all()
     pdf_file = FilesUploaded.objects.filter(title__icontains="form")
-    context = {'file_list': file_list, 'pdf_file' : pdf_file }
+    scientificTemplate_file = FilesUploaded.objects.filter(title__icontains="ScientificTemplate")
+    context = {'file_list': file_list, 'pdf_file' : pdf_file, 'scientificTemplate_file' : scientificTemplate_file}
     return render(request, 'workinprogress/proposalDetails.html', context)
     
 def downloadForm(request):

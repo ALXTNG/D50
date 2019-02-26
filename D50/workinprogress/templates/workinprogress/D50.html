@@ -25,8 +25,10 @@
 
 					<a  href="#" class="list-group-item"> Our instrument: D50</a>
 					<a href="#Source" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>The Neutron source </a>
+                                        <a href="#D50" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>D50</a>
 					<a href="#MRDet" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>The medium resolution detector </a>                  
-					<a href="#2017" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>2017 upgrades </a>                  
+					<a href="#HRDet" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>The high resolution detectors </a>                  
+                                        <a href="#XRay" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>The x-ray setup </a>   					
 					<a href="#Environment" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>The testing environment </a>                  
 					<a href="#Workspace" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>The working space </a>                  
 					<a href="#Additional_facilities" class="list-group-item"><span style="display:inline-block; width: 1cm;"></span>Additional facilities </a>                  
@@ -66,7 +68,7 @@
     <ul>   
         <li> Up to 170 mm field of view </li>
         <li> Down to 30 micron real resolution </li>
-        <li> Up to 100 Hz (1 minute Tomographies and below)</li>
+        <li> Up to 100 Hz (10 seconds Tomographies and below)</li>
         <li> 2000 x 2000 pixels</li></p>
 <p>   </p>
 </div>       
@@ -77,11 +79,28 @@
     The key elements in a neutron tomograph are the source of neutrons and the <a href="#MRDet">detector</a>, as well as the surounding <a href="#Environment">environment</a>
     <ul>   
         <li> The <a href="https://www.ill.eu/" >ILL</a> is the world's most powerful neutron source with its 1.5E15 thermal neutrons neutrons per second per cm2 (n/s/cm2) </li>
-        <li> Neutron Flux at the instrument: 5*10E7 n/s/cm2 (for a collimation L/D = 660)  <u>soon to be upgraded</u> </li>
-        <li> Collimation: L = 10m, Range of pinholes from 15 mm to 1.5 mm (<u>soon up to be increased up 30/40 mm</u>). For more information about the meaning collimation visit <a href="{% url 'neutron_x_ray_matter' %}" >this</a>. </li>
+        <li> Neutron Flux at the instrument: 9*10E7 n/s/cm2 (for a collimation L/D = 500)  </li>
+        <li> Collimation: L = 10m, Range of pinholes from 30 mm to 1.5 mm . For more information about the meaning collimation visit <a href="{% url 'neutron_x_ray_matter' %}" >this</a>. </li>
         <li> Mean neutron energy: 12.3 meV, 3 Å (cold neutrons) </li>
     </ul>
 <img class="img-responsive" src="{% static "home/images/source.jpg" %}" style="width: 50%; height: 50%" >   
+
+
+
+
+<div>
+
+       <div id="D50"></div>
+    <p>
+        <h1>D50</h1>
+
+D50 is a neutron instrument which was initiated in 2014, and financed by the French program IRT Nanoelec of which ILL is a member, specifically within its characterisation platform (<a href="http://www.pac-grenoble.eu/">PAC-G</a>). Initially, this beamline was dedicated to an innovative approach to reflectometry (<a href="https://doi.org/10.1107/S1600576718001528">Rainbows</a>) capable of taking measurements ten times faster than traditional instruments, and particularly well-suited to the unique needs of microelectronics R&D for which it was conceived.
+
+<br>As of 2016 the Universite Grenoble Alpes <a href="https://next-grenoble.fr/workinprogress/about_NeXT/"> acquired </a>  a part of the "beamtime budget" of D50 and built and operated a separate Neutron and X-ray Tomograph taking advantage of the unique flux of ILL as well as of the high complementarity of these two techniques. This part of the instrument is operated as a public instrument and is free open and for scientific proposals from anywhere around the world. 
+
+<br>The Rainbows Reflectometer and the Neutrons and X-ray Tomograph are currently run in alternation since they both require the full spectrum and size of the beam.</p>
+</div>
+
 
 
 <!--
@@ -106,7 +125,7 @@
     <ul>   
         <li> Up to 170 mm field of view </li>
         <li> Down to 30 micron real resolution </li>
-        <li> Up to 100 Hz (1 minute Tomographies and below)</li>
+        <li> Up to 100 Hz (10 second Tomographies and below)</li>
         <li> 2000 x 2000 pixels</li>
     </ul>
     <img class="img-responsive" src="{% static "home/images/midres.png" %}" style="width: 20%; height: 20%" >
@@ -118,45 +137,36 @@
 
 <p><img class="img-responsive" src="{% static "home/images/2017_works.png" %}" style="width: 30%; height: 30%" align="right" valign="middle" vspace="5" hspace="5"/>   
 
-    <h1>2017 Works</h1>
-    
-
-    <ul> 
-      <li> Development of a <b>high-resolution detector</b> </li>
-      <ul>
-        <li> 10 micrometer <i>real</i> resolution </li>
-        <li> Fields of view from 10x10 to 50x50 mm  </li>
-      </ul>
-      <li> Addition of an <b>x-ray tomograph</b> for simultaneous x-ray/neutron acquisitions </li>
-        <ul>
+    <h1>X-ray setup</h1>
+    <ul>
           <li> 5 micrometer <i>real</i> resolution </li>
           <li> Fields of view from 8x10 mm to 250x300 mm  </li>
-          <li> Source: 75 W, 40 - 150 kV  </li>
-      </ul>
+          <li> Source: 75 W, 150 kV  </li>
     </ul>
 </p> 
 </div>   
 -->
-<div id="2017"></div>
+<div id="HRDet"></div>
 
 
-    <h1>2017 upgrades</h1>
-    Several upgrades to the existing instrument, as well as new functionalities are being develeoped during the course of 2017.
+    <h1>The high resolution detectors</h1>
 
-    <ul> 
-      <li> Development of a <b>high-resolution detector</b> </li>
-      <ul>
-        <li> 10 micrometer <i>real</i> resolution </li>
-        <li> Fields of view from 10x10 to 50x50 mm  </li>
-      </ul>
-      <li> Addition of an <b>x-ray tomograph</b> for simultaneous x-ray/neutron acquisitions </li>
-        <ul>
+    <ul>
+          <li> down to 7  micrometer <i>real</i> resolution </li>
+          <li> Fields of view from below 25mm  </li>
+    </ul>
+
+<div id="XRay"></div>
+
+
+    <h1>X-ray setup</h1>
+
+    <ul>
           <li> 5 micrometer <i>real</i> resolution </li>
           <li> Fields of view from 8x10 mm to 250x300 mm  </li>
-          <li> Source: 75 W, 40 - 150 kV  </li>
-      </ul>
-      <li> Increase of the radioprotection to increase the size of the pinholes up to 30 or 40 mm, allowing even <b>higher flux</b>
+          <li> Source: 75 W, 150 kV  </li>
     </ul>
+
 
 <img class="img-responsive" src="{% static "home/images/2017_works.png" %}" style="width: 40%; height: 40%" >
 

@@ -13,25 +13,31 @@
       <div style="margin-left:auto;margin-right:auto;text-align:left">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h2 class="panel-title"><span class="glyphicon glyphicon-calendar"></span> Deadline: 15th October 2017</h2>
+					<h2 class="panel-title"><span class="glyphicon glyphicon-calendar"></span> Deadline: 14th October 2018</h2>
 				</div>
 
 				<div class="panel-body">
 					<h1>Submission procedure: </h1>
 <BR />
           <p><b>Documents to submit </b>
-          <li>A short (maximum 2 pages) description of the scientific rationale of the proposal and of the proposed experimental campaign  </li>
-					<li>To help us assess the technical feasibility of the proposal the following form must also be completed and submitted </li>
+          <li>A short (maximum 2 pages) description of the scientific rationale of the proposal and of the proposed experimental campaign following the template below  </li>
+          {% for file in scientificTemplate_file %}
+            <p> <a href="{{ file.fileUploaded.url }}" class="btn btn-default">Download Scientific Case template</a></p>
+          {% endfor %} <BR />
+					<li>To help us assess the technical feasibility of the proposal the following Technical Addendum form must also be completed and submitted </li>
+          
+          {% for file in pdf_file %}
+            <p> <a href="{{ file.fileUploaded.url }}" class="btn btn-default">Download Technical Addendum template</a></p>
+          {% endfor %} <BR />
+          
           </p>
 <!--
           <p> <a href=" ../downloadform" class="btn btn-default">Download form</a></p>
 -->
-          {% for file in pdf_file %}
-            <p> <a href="{{ file.fileUploaded.url }}" class="btn btn-default">Download form</a></p>
-          {% endfor %} <BR />
+
           
           <p><b>Deadlines: </b></p>
-          <p> The proposal round will open on the <b>31st of July 2017</b> and close on the <b>30th of September 2017</b> </p>
+          <p> The proposal round will open on the <b>31st of August 2018</b> and close on the <b>14th of October 2018</b> </p>
 <BR />
   
           <p><b>How to submit: </b></p>
@@ -49,6 +55,7 @@
 </div>  
    
 {% endblock %}       
+
 
 
 

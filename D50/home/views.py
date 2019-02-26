@@ -370,7 +370,7 @@ def list_profiles(request):
 
     
 def proposalSubmission(request):
-    latest_proposal = Proposal_round.objects.order_by('-proposal_round').reverse()[0]
+    latest_proposal = Proposal_round.objects.order_by('-proposal_round')[0]
     context = {'latest_proposal':latest_proposal}
     if latest_proposal.is_active() :
           return render(request, 'home/proposalSubmissionOK.html', context)
