@@ -19,6 +19,9 @@ def access_forbidden_forum(request):
 def aboutNEXT(request):
     return render(request, 'workinprogress/aboutNEXT.html')
     
+def futureproject(request):
+    return render(request, 'workinprogress/next2.html')
+        
 def aboutwebsite(request):
     return render(request, 'workinprogress/aboutwebsite.html')
     

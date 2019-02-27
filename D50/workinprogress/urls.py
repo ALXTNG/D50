@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^about_this_website/', views.aboutwebsite, name='aboutwebsite'),
     url(r'^logo/', views.logo, name='logo'),
     url(r'^contact/', views.contact, name='contact'),
+    url(r'^futureproject/', views.futureproject, name='futureproject'),
     url(r'^mailinglist/', views.mailinglist, name='mailinglist'),
     url(r'^proposals/', views.proposalDetails, name='proposalDetails'),
     url(r'^downloadform/', views.downloadForm, name='downloadForm'),
